@@ -4,11 +4,9 @@
   
     
     <entry>
-      <title><![CDATA[Android开发神器Android Studio插件 大集结！]]></title>
+      <title><![CDATA[Android开发神器 ： Android Studio 插件 大集结！]]></title>
       <url>https://github.com/pangrongxian/2016/10/03/as01/</url>
-      <content type="html"><![CDATA[<p>###标注:本文在Windows环境下进行</p>
-<p>#GsonFormat</p>
-<h3 id="GsonFormat"><a href="#GsonFormat" class="headerlink" title="GsonFormat"></a><a href="https://github.com/zzz40500/GsonFormat">GsonFormat</a></h3><p>GsonFormat 说是开发中最常用的Android Studio插件绝不为过！</p>
+      <content type="html"><![CDATA[<h3 id="标注-本文在Windows环境下进行"><a href="#标注-本文在Windows环境下进行" class="headerlink" title="标注:本文在Windows环境下进行"></a>标注:本文在Windows环境下进行</h3><h1 id="GsonFormat"><a href="#GsonFormat" class="headerlink" title="GsonFormat"></a>GsonFormat</h1><h4 id="GitHub：GsonFormat"><a href="#GitHub：GsonFormat" class="headerlink" title="GitHub：GsonFormat"></a><a href="https://github.com/zzz40500/GsonFormat">GitHub：GsonFormat</a></h4><p>GsonFormat 说是开发中最常用的Android Studio插件绝不为过！</p>
 <p>绝大多数的服务端都以json数据格式返回，而客户端需要根据api接口生成相应的实体类，这个插件</p>
 <p>把这个过程自动化了，省了我们很多功夫不是！</p>
 <p>GsonFormat生成实体类 的 快捷键 是： Alt + S 或者 Alt + Insert 也可以。</p>
