@@ -1,12 +1,221 @@
-<?xml version="1.0" encoding="utf-8"?>
-<search>
-  
-  
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
     
-    <entry>
-      <title><![CDATA[Android 事件分发机制]]></title>
-      <url>https://github.com/pangrongxian/2017/06/16/%E5%9B%BE%E8%A7%A3%20Android%20%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/</url>
-      <content type="html"><![CDATA[<p>转自：<a href="http://www.jianshu.com/p/e99b5e8bd67b" target="_blank" rel="external">http://www.jianshu.com/p/e99b5e8bd67b</a> </p>
+        <meta name="description" content="在思域车上等到天亮">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="小先先">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Android 事件分发机制"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="在思域车上等到天亮" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Android解忧杂货店"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Android 事件分发机制 - Android解忧杂货店</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about">
+                            
+                                about
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/pangrongxian">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Android 事件分发机制</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2017-06-16
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/Android/">#Android</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Android/">Android</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>转自：<a href="http://www.jianshu.com/p/e99b5e8bd67b" target="_blank" rel="external">http://www.jianshu.com/p/e99b5e8bd67b</a> </p>
 <p>为什么转载这篇文章？因为它能让你很容易的把事件分发记在你的脑海，感觉自己写不出比这更好的文章了，推荐！</p>
 <pre><code>在 Android 开发中，事件分发机制是一块Android 比较重要的知识体系，了解并熟悉整套的
 
@@ -119,100 +328,77 @@ ViewGroup1 | dispatchTouchEvent --&gt; ACTION_UP
 <p><img src="http://xdeveloper.cn/content/images/2017/04/19.png" alt="图 19."></p>
 <p>一下子画了好多图，还有好几种情况就不再画了，相信你也看出规律了，对于在onTouchEvent消费事件的情况：在哪个View的onTouchEvent 返回true，那么ACTIONMOVE和ACTIONUP的事件从上往下传到这个View后就不再往下传递了，而直接传给自己的onTouchEvent 并结束本次事件传递过程。</p>
 <p>对于ACTIONMOVE、ACTIONUP总结：ACTIONDOWN事件在哪个控件消费了（return true）， 那么ACTIONMOVE和ACTIONUP就会从上往下（通过dispatchTouchEvent）做事件分发往下传，就只会传到这个控件，不会继续往下传，如果ACTIONDOWN事件是在dispatchTouchEvent消费，那么事件到此为止停止传递，如果ACTIONDOWN事件是在onTouchEvent消费的，那么会把ACTIONMOVE或ACTION_UP事件传给该控件的onTouchEvent处理并结束传递。</p>
-]]></content>
-    </entry>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/pangrongxian" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2017 小先先<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
     
-    <entry>
-      <title><![CDATA[Android开发神器 ： Android Studio 插件 大集结！]]></title>
-      <url>https://github.com/pangrongxian/2016/10/03/as01/</url>
-      <content type="html"><![CDATA[<p>标注:本文在Windows环境下进行</p>
-<h1 id="GsonFormat"><a href="#GsonFormat" class="headerlink" title="GsonFormat"></a>GsonFormat</h1><h4 id="GitHub：GsonFormat"><a href="#GitHub：GsonFormat" class="headerlink" title="GitHub：GsonFormat"></a><a href="https://github.com/zzz40500/GsonFormat">GitHub：GsonFormat</a></h4><p>GsonFormat 说是开发中最常用的Android Studio插件绝不为过！</p>
-<p>绝大多数的服务端都以json数据格式返回，而客户端需要根据api接口生成相应的实体类，这个插件</p>
-<p>把这个过程自动化了，省了我们很多功夫不是！</p>
-<p>GsonFormat生成实体类 的 快捷键 是： Alt + S 或者 Alt + Insert 也可以。</p>
-<ul>
-<li>1.首先在浏览器打开一条接口，然后使用 <a href="http://json.cn/" target="_blank" rel="external">json.cn</a> 把接口数据显示出来看看</li>
-<li>2.Ctrl + A 全选接口数据，Ctrl + C 复制</li>
-<li>3.回到Android Studio，Alt + S 快捷键弹出一个框框，然后 Ctrl + V 把刚刚复制的内容粘贴进去，点击OK即可生成你想要的数据接口的实体，是不是很酷啊！</li>
-</ul>
-<p><img src="https://github.com/pangrongxian/PhotoResour/blob/master/res/GsonFormat.gif?raw=true.gif" alt=""></p>
-<h1 id="android-butterknife-zelezny"><a href="#android-butterknife-zelezny" class="headerlink" title="android-butterknife-zelezny"></a>android-butterknife-zelezny</h1><h4 id="GitHub-ButterKnife"><a href="#GitHub-ButterKnife" class="headerlink" title="GitHub-ButterKnife"></a><a href="https://github.com/JakeWharton/butterknife">GitHub-ButterKnife</a></h4><ul>
-<li>android-butterknife-zelezny是根据butterknife定制的一款插件，能够方便快速初始化布局控件，再也不用手动 findViewById 了。</li>
-</ul>
-<h5 id="安装"><a href="#安装" class="headerlink" title="安装 :"></a>安装 :</h5><ul>
-<li><p>如何安装Android Studio的插件：<br>以下以安装 android-butterknife-zelezny 为例子，其他的插件也是一样的安装步骤。</p>
-</li>
-<li><p><strong>File Setting —&gt; Plugins  —&gt; Browse repositories</strong> ,然后在输入框输入要安装的插件名称，点击Install即可安装，<br>安装完之后按照提示重启AS便可使用。</p>
-</li>
-</ul>
-<p><img src="https://github.com/pangrongxian/PhotoResour/blob/master/res/butterknife.png?raw=true.png" alt=""></p>
-<p><img src="https://github.com/pangrongxian/PhotoResour/blob/master/res/butterknife.gif?raw=true.gif" alt=""></p>
-<h5 id="使用"><a href="#使用" class="headerlink" title="使用 :"></a>使用 :</h5><p><img src="https://github.com/pangrongxian/PhotoResour/blob/master/res/butterknife02.gif?raw=true" alt=""></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[世界，你好！]]></title>
-      <url>https://github.com/pangrongxian/2016/08/16/hi/</url>
-      <content type="html"><![CDATA[<h2 id="世界，你好"><a href="#世界，你好" class="headerlink" title="世界，你好~"></a>世界，你好~</h2><p><strong>小先的杂货店</strong>   在思域车上等到天亮 , 只为去远方见你一面 （点击右上角 Follower Me）</p>
-<h3 id="This-is-my-first-blog"><a href="#This-is-my-first-blog" class="headerlink" title="This is my first blog"></a>This is my first blog</h3><a id="more"></a>
-<p><img src="http://pic.baike.soso.com/p/20131122/20131122195404-381445545.jpg" alt=""></p>
-<ul>
-<li>大都会に　仆はもう一人で</li>
-<li>投げ舍てられた　空カンのようだ</li>
-<li>互いのすべてを　知りつくすまでが</li>
-<li>爱ならば　いっそ　永久に眠ろうか</li>
-<li>世界が终るまでは　离れる事もない</li>
-<li>そう愿っていた　几千の夜と</li>
-<li>戾らない时だけが　何故辉いては</li>
-<li>やつれ切った　心までも　坏す</li>
-<li>はかなき思い　このTragedy Night</li>
-<li>そして人は　答えを求めて</li>
-<li>かけがえのない　何かを失う</li>
-<li>欲望だらけの　街じゃ　夜空の</li>
-<li>星屑も　仆らを　灯せない</li>
-<li>世界が终る前に　闻かせておくれよ</li>
-<li>满开の花が　似合いのCatastrophe</li>
-<li>谁もが望みながら　永远を信じない</li>
-<li>なのに　きっと　明日を梦见てる</li>
-<li>はかなき日々と　このTragedy Night</li>
-<li>世界が终るまでは　离れる事もない</li>
-<li>そう愿っていた　几千の夜と</li>
-<li>戾らない时だけが　何故辉いては</li>
-<li>やつれ切った　心までも　坏す</li>
-<li>はかなき思い　このTragedy Night*</li>
-</ul>
-<h3 id="中文翻译"><a href="#中文翻译" class="headerlink" title="中文翻译"></a>中文翻译</h3><ul>
-<li>孤身一人 彷徨在大都市</li>
-<li>就像被人丢弃的空啤酒罐</li>
-<li>如果非要探究彼此的一切</li>
-<li>才叫爱的话 还不如永久长眠</li>
-<li>直到世界的尽头 也不愿与你分离</li>
-<li>曾在千万个夜晚许下心愿</li>
-<li>一去不回的时光 为何却如此耀眼</li>
-<li>对憔悴不堪的心落井下石</li>
-<li>渺茫的思念 在这个悲剧的夜</li>
-<li>而人们总是追求表面答案</li>
-<li>结果错失无可取代的宝物</li>
-<li>在这充斥着欲望的街头</li>
-<li>就连夜空繁星也难以照亮我们</li>
-<li>在世界结束之前 谁愿给我讲一个</li>
-<li>与繁花盛开最贴切的不幸</li>
-<li>谁都满怀着期望 却又不相信永远</li>
-<li>…可是也一定梦想着明天</li>
-<li>短暂的时光 在这悲剧的夜晚</li>
-<li>直到世界的尽头 也不愿与你分离</li>
-<li>曾在千万个夜晚许下心愿</li>
-<li>一去不回的时光 为何却如此耀眼</li>
-<li>对憔悴不堪的心落井下石</li>
-<li>渺茫的思念 在这悲剧的夜晚</li>
-<li>这悲剧的夜晚</li>
-</ul>
-<h3 id="See-you-again"><a href="#See-you-again" class="headerlink" title="See you again"></a>See you again</h3><p><em>《直到世界终结》是一首触动人心的背景音乐，<br>是为《灌篮高手》之中人物三井寿所创作的歌曲。在翔阳的比赛中，三井在应对长谷川一志时体力近乎崩溃。但他想起国中的那场决赛，想到安西教练的那番话：“你现在放弃就等于比赛提前结束。”想到他也是坚持到最后才取得了胜利。此时，他又重燃斗志。<br>他看着身边的队友，回忆起就在不久前，沉沦的他带着不良伙伴闯入球馆对他们所做的一幕幕，后悔不已—–“我是一无是处的笨蛋”。此时又响起了《直到世界终结》，这幕回忆整整持续了5分钟——也就是整首歌唱全的时间。虽说动画片里这种回忆有时候会让人觉得很冗长，不过这里的回忆真的很感人。当《直到世界终结》第一个音节响起的时候，回忆之窗就打开了，在很多场比赛，三井都有过疯狂的连投三分球成功的光辉历史。安西教练曾对他说过“有你在真好”。《灌篮高手》成功不仅仅是剧情和人物性格的光辉所致，也少不了《直到世界终结》这样优秀BGM的完美衬托。</em></p>
-<h3 id="Music"><a href="#Music" class="headerlink" title="Music"></a>Music</h3><p>[音乐]<a href="http://bd.kuwo.cn/yinyue/5075468?from=baidu" target="_blank" rel="external">http://bd.kuwo.cn/yinyue/5075468?from=baidu</a></p>
-]]></content>
-    </entry>
-    
-  
-  
-</search>
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
