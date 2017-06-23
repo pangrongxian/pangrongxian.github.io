@@ -4,6 +4,109 @@
   
     
     <entry>
+      <title><![CDATA[Android工程师-求职简历]]></title>
+      <url>https://github.com/pangrongxian/2017/06/24/Android%E5%B7%A5%E7%A8%8B%E5%B8%88-%E6%B1%82%E8%81%8C%E7%AE%80%E5%8E%86/</url>
+      <content type="html"><![CDATA[<h2 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h2><ul>
+<li><p>手机：13557053106</p>
+</li>
+<li><p>Email：pangrongxian@gmail.com </p>
+</li>
+<li><p>QQ ： 859358014</p>
+</li>
+</ul>
+<h2 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h2><ul>
+<li><p>庞荣先 / 男 / 1993</p>
+</li>
+<li><p>本科 / 梧州学院 / 电子信息工程系</p>
+</li>
+<li><p>工作年限：2 年</p>
+</li>
+<li><p>技术博客：<a href="https://pangrongxian.github.io" target="_blank" rel="external">https://pangrongxian.github.io</a></p>
+</li>
+<li><p>GitHub：<a href="https://github.com/pangrongxian">https://github.com/pangrongxian</a></p>
+</li>
+<li><p>期望职位：Android 应用开发工程师</p>
+</li>
+<li><p>期望薪资：税前月薪 10k~12k，特别喜欢的公司可例外</p>
+</li>
+<li><p>期望城市：海外（马来西亚、菲律宾）/ 深圳 /广州</p>
+</li>
+</ul>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><blockquote>
+<p>两年 Android 开发实战经验，能够独立完成项目，开发，兼容性测试，修复bug，发布应用市场一条龙独立开发。</p>
+<p>1.熟练集成开发即时通讯 IM（融云，环信，容联云，云信）；</p>
+<p>2.熟练集成开发地图模块（百度地图）</p>
+<p>3.熟练开发商城类App，购物车，下单，支付（支付宝，微信，Ping++）；</p>
+<h2 id="职业技能"><a href="#职业技能" class="headerlink" title="职业技能"></a>职业技能</h2></blockquote>
+<ul>
+<li><p>2 年工作经验, 2 年 Android 开发经验；</p>
+</li>
+<li><p>具有编写规范，且易于维护代码的能力；</p>
+</li>
+<li><p>熟悉面向对象，了解封装、继承和接口设计，了解 MVC 与 MVP 架构；</p>
+</li>
+<li><p>熟悉自定义 View 绘制，以及手势、事件分发；</p>
+</li>
+<li><p>熟悉代码混淆，资源混淆，反编译安装包，安装包瘦身；</p>
+</li>
+<li><p>熟悉使用第三方开源组件，Logger，Butterknife，Glide，PhotoView，OkHttp，Gson 等等；</p>
+</li>
+<li><p>熟悉 JSON 与 XML 数据结构；</p>
+</li>
+<li><p>能够快速掌握并集成一份第三方 SDK， 支付，推送，地图，社交网络分享，第三方登录；</p>
+</li>
+<li><p>懂得一些布局优化，滑动流畅度优化；</p>
+</li>
+<li><p>熟悉 Android 内存优化；</p>
+</li>
+<li><p>熟悉 Android 缓存机制</p>
+</li>
+<li><p>熟练掌握Android 三大主流网络框架OkHttp Retrofit和Volley的封装和使用；</p>
+</li>
+<li><p>熟练掌握 Android 三大图片加载框架Picasso、Glide和Fresco封装和使用；</p>
+</li>
+<li><p>熟练使用Retrofit + RxJava + OkHttp + MVP主流框架进行快速开发；</p>
+</li>
+<li><p>熟练掌握第三方分享和登陆；</p>
+</li>
+<li><p>懂得一些屏幕适配；</p>
+</li>
+<li><p>熟练掌握第三方支付：支付宝支付，微信支付，Ping++聚合支付；</p>
+</li>
+<li><p>熟练集成第三方即时通信：环信IM，容联云IM，融云IM；</p>
+</li>
+</ul>
+<h2 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h2><h4 id="广东威速科技有限公司-（-2016年12月-至今-）"><a href="#广东威速科技有限公司-（-2016年12月-至今-）" class="headerlink" title="广东威速科技有限公司 （ 2016年12月 ~ 至今 ）"></a>广东威速科技有限公司 （ 2016年12月 ~ 至今 ）</h4><h5 id="《30天商城》-项目"><a href="#《30天商城》-项目" class="headerlink" title="《30天商城》 项目"></a>《30天商城》 项目</h5><p><strong>项目简介</strong>：「30天商城」一款便捷的线上电子商务购物商城，万千商品，提供尊贵服务，30天无理由退换。</p>
+<p><strong>项目职责</strong>：</p>
+<pre><code>1.独立负责整个项目框架的搭建； 
+
+2.独自完构建整个项目的网络架构；
+
+3.开发用户系统，第三方登录，购物流程，购物车，接入客服系统，物流系统等；
+</code></pre><hr>
+<h4 id="广州市士加堡网络技术有限公司-（-2016年1月-2016年12月-）"><a href="#广州市士加堡网络技术有限公司-（-2016年1月-2016年12月-）" class="headerlink" title="广州市士加堡网络技术有限公司 （ 2016年1月 ~ 2016年12月 ）"></a>广州市士加堡网络技术有限公司 （ 2016年1月 ~ 2016年12月 ）</h4><h5 id="《士加堡民宿》-项目"><a href="#《士加堡民宿》-项目" class="headerlink" title="《士加堡民宿》 项目"></a>《士加堡民宿》 项目</h5><p><strong>项目简介</strong>：「士加堡民宿」是一款休闲旅游订房平台app，涉及社交、工具、电商等众多模块</p>
+<p><strong>项目职责</strong>：</p>
+<pre><code>1.我在此项目负责了项目框架的搭建； 
+
+2.独自完成项目中所有地图模块功能的开发;
+
+3.集成融云 IM 即时通讯完成社交功能；
+</code></pre><ul>
+<li>遇到上传多张图片OOM问题，我采取了压缩Bitmap优化处理，成功解决问题。</li>
+<li>地址定位功能技术细节是难点，开始使用的详细地址定位到后来使用经纬度定位，实施前偏差10-50米，实施后精度偏差5-10米，定位功能非常准确。</li>
+</ul>
+<hr>
+<h4 id="广州小不点信息科技有限公司-（-2015年6月-2015年12月-）"><a href="#广州小不点信息科技有限公司-（-2015年6月-2015年12月-）" class="headerlink" title="广州小不点信息科技有限公司 （ 2015年6月 ~ 2015年12月 ）"></a>广州小不点信息科技有限公司 （ 2015年6月 ~ 2015年12月 ）</h4><h5 id="《演艺风》-项目"><a href="#《演艺风》-项目" class="headerlink" title="《演艺风》  项目"></a>《演艺风》  项目</h5><p><strong>项目简介</strong>：「演艺风」专注于打造一个专业的资讯、服务商和供应商为一体的服务平台，服务商提供服务信息，供应商提供演艺相关的产品，音响和灯光等。</p>
+<p><strong>项目职责</strong>：</p>
+<pre><code>1.主要负责资讯模块和UI界面搭建；
+
+2.百度地图模块的开发及全国城市数据展示模块的设计，编写开发文档。
+
+3.参与视频播放模块的开发
+</code></pre>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android View的绘制流程]]></title>
       <url>https://github.com/pangrongxian/2017/06/16/Android%20View%E7%9A%84%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B/</url>
       <content type="html"><![CDATA[<p>View的绘制和事件处理是两个重要的主题，上一篇《图解 Android事件分发机制》已经把事件的分发机制讲得比较详细了，这一篇是针对View的绘制，View的绘制如果你有所了解，基本分为measure、layout、draw 过程，其中比较难理解就是measure过程，所以本篇文章大幅笔地分析measure过程，相对讲得比较详细，文章也比较长，如果你对View的绘制还不是很懂，对measure过程掌握得不是很深刻，那么耐心点，看完这篇文章，相信你会有所收获的。</p>
