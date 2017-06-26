@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[Android开发人员不得不收集的代码]]></title>
-      <url>https://github.com/pangrongxian/2016/10/22/Android%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%94%B6%E9%9B%86%E7%9A%84%E4%BB%A3%E7%A0%81/</url>
+      <url>https://github.com/pangrongxian/2017/06/26/Android%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%94%B6%E9%9B%86%E7%9A%84%E4%BB%A3%E7%A0%81/</url>
       <content type="html"><![CDATA[<p>本文原作者“Blankj”，通过维权骑士授权品牌馆授权转载。</p>
 <p><a href="https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md">GitHub</a></p>
 <p><a href="https://github.com/Blankj/AndroidUtilCode">README of English</a></p>
@@ -177,127 +177,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Android 事件分发机制]]></title>
-      <url>https://github.com/pangrongxian/2016/08/15/%E5%9B%BE%E8%A7%A3%20Android%20%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/</url>
-      <content type="html"><![CDATA[<p>转自：<a href="http://www.jianshu.com/p/e99b5e8bd67b" target="_blank" rel="external">http://www.jianshu.com/p/e99b5e8bd67b</a> </p>
-<p>为什么转载这篇文章？因为它能让你很容易的把事件分发记在你的脑海，感觉自己写不出比这更好的文章了，推荐！</p>
-<pre><code>在 Android 开发中，事件分发机制是一块Android 比较重要的知识体系，了解并熟悉整套的
-
-分发机制有助于更好的分析各种点击滑动失效问题，更好去扩展控件的事件功能和开发自
-
-定义控件，同时事件分发机制也是 Android 面试必问考点之一，如果你能把下面的一些事
-
-件分发图当场画出来肯定加分不少。废话不多说，总结一句:事件分发机制很重要。
-</code></pre><h2 id="Android-事件分发流"><a href="#Android-事件分发流" class="headerlink" title="Android 事件分发流"></a>Android 事件分发流</h2><p>关于Android 事件分发机制网上的博文很多，但是很多都是写个Demo然后贴一下输出的Log或者拿源码分析，然后一堆的注释和说明，如果用心的去看肯定是收获不少但是确实很难把整个流程说清和记住。曾经也是拼命想记住整个流程，但是一段时间又忘了，最后觉得分析这种问题和事件流的走向，一张图来解释和说明会清晰很多，下面我根据画的一张事件分发流程图,说明的事件从用户点击之后，在不同函数不同返回值的情况的最终走向。</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/1.png" alt="图 1."></p>
-<ul>
-<li>仔细看的话，图分为3层，从上往下依次是Activity、ViewGroup、View</li>
-<li>事件从左上角那个白色箭头开始，由Activity的dispatchTouchEvent做分发</li>
-<li>箭头的上面字代表方法返回值，（return true、return false、return - - -   super.xxxxx(),super 的意思是调用父类实现。</li>
-<li>dispatchTouchEvent和 onTouchEvent的框里有个【true—-&gt;消费】的字，表示的意思是如果方法返回true，那么代表事件就此消费，不会继续往别的地方传了，事件终止。</li>
-<li>目前所有的图的事件是针对ACTIONDOWN的，对于ACTIONMOVE和ACTION_UP我们最后做分析。</li>
-<li>之前图中的Activity 的dispatchTouchEvent 有误（图已修复），只有return super.dispatchTouchEvent(ev) 才是往下走，返回true 或者 false 事件就被消费了（终止传递）。</li>
-</ul>
-<p>仔细看整个图，我们得出事件流 走向的几个结论（希望读者专心的看下图 1，多看几遍，脑子有比较清晰的概念。）</p>
-<h4 id="1、如果事件不被中断，整个事件流向是一个类U型图，我们来看下这张图，可能更能理解U型图的意思。"><a href="#1、如果事件不被中断，整个事件流向是一个类U型图，我们来看下这张图，可能更能理解U型图的意思。" class="headerlink" title="1、如果事件不被中断，整个事件流向是一个类U型图，我们来看下这张图，可能更能理解U型图的意思。"></a>1、如果事件不被中断，整个事件流向是一个类U型图，我们来看下这张图，可能更能理解U型图的意思。</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/2.png" alt="图 2."></p>
-<p>所以如果我们没有对控件里面的方法进行重写或更改返回值，而直接用super调用父类的默认实现，那么整个事件流向应该是从<strong>Activity</strong>—-&gt;<strong>ViewGroup</strong>—&gt;<strong>View</strong> 从上往下调用<strong>dispatchTouchEvent</strong>方法，一直到叶子节点（View）的时候，再由<strong>View</strong>—&gt;<strong>ViewGroup</strong>—&gt;<strong>Activity</strong>从下往上调用<strong>onTouchEvent</strong>方法。</p>
-<h4 id="2、dispatchTouchEvent-和-onTouchEvent-一旦return-true-事件就停止传递了（到达终点）（没有谁能再收到这个事件）。看下图中只要return-true事件就没再继续传下去了，对于return-true我们经常说事件被消费了，消费了的意思就是事件走到这里就是终点，不会往下传，没有谁能再收到这个事件了。"><a href="#2、dispatchTouchEvent-和-onTouchEvent-一旦return-true-事件就停止传递了（到达终点）（没有谁能再收到这个事件）。看下图中只要return-true事件就没再继续传下去了，对于return-true我们经常说事件被消费了，消费了的意思就是事件走到这里就是终点，不会往下传，没有谁能再收到这个事件了。" class="headerlink" title="2、dispatchTouchEvent 和 onTouchEvent 一旦return true,事件就停止传递了（到达终点）（没有谁能再收到这个事件）。看下图中只要return true事件就没再继续传下去了，对于return true我们经常说事件被消费了，消费了的意思就是事件走到这里就是终点，不会往下传，没有谁能再收到这个事件了。"></a>2、dispatchTouchEvent 和 onTouchEvent 一旦return true,事件就停止传递了（到达终点）（没有谁能再收到这个事件）。看下图中只要return true事件就没再继续传下去了，对于return true我们经常说事件被消费了，消费了的意思就是事件走到这里就是终点，不会往下传，没有谁能再收到这个事件了。</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/3.png" alt="图 3."></p>
-<h4 id="3、dispatchTouchEvent-和-onTouchEvent-return-false的时候事件都回传给父控件的onTouchEvent处理。"><a href="#3、dispatchTouchEvent-和-onTouchEvent-return-false的时候事件都回传给父控件的onTouchEvent处理。" class="headerlink" title="3、dispatchTouchEvent 和 onTouchEvent return false的时候事件都回传给父控件的onTouchEvent处理。"></a>3、dispatchTouchEvent 和 onTouchEvent return false的时候事件都回传给父控件的onTouchEvent处理。</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/4.png" alt="图 4."></p>
-<p>看上图深蓝色的线，对于返回false的情况，事件都是传给父控件onTouchEvent处理。</p>
-<ul>
-<li><p>对于dispatchTouchEvent 返回 false 的含义应该是：事件停止往子View传递和分发同时开始往父控件回溯（父控件的onTouchEvent开始从下往上回传直到某个onTouchEvent return true），事件分发机制就像递归，return false 的意义就是递归停止然后开始回溯。</p>
-</li>
-<li><p>对于onTouchEvent return false 就比较简单了，它就是不消费事件，并让事件继续往父控件的方向从下往上流动。</p>
-</li>
-</ul>
-<h4 id="4、dispatchTouchEvent、onTouchEvent、onInterceptTouchEvent-ViewGroup-和View的这些方法的默认实现就是会让整个事件安装U型完整走完，所以-return-super-xxxxxx-就会让事件依照U型的方向的完整走完整个事件流动路径），中间不做任何改动，不回溯、不终止，每个环节都走到。"><a href="#4、dispatchTouchEvent、onTouchEvent、onInterceptTouchEvent-ViewGroup-和View的这些方法的默认实现就是会让整个事件安装U型完整走完，所以-return-super-xxxxxx-就会让事件依照U型的方向的完整走完整个事件流动路径），中间不做任何改动，不回溯、不终止，每个环节都走到。" class="headerlink" title="4、dispatchTouchEvent、onTouchEvent、onInterceptTouchEvent ViewGroup 和View的这些方法的默认实现就是会让整个事件安装U型完整走完，所以 return super.xxxxxx() 就会让事件依照U型的方向的完整走完整个事件流动路径），中间不做任何改动，不回溯、不终止，每个环节都走到。"></a>4、dispatchTouchEvent、onTouchEvent、onInterceptTouchEvent ViewGroup 和View的这些方法的默认实现就是会让整个事件安装U型完整走完，所以 return super.xxxxxx() 就会让事件依照U型的方向的完整走完整个事件流动路径），中间不做任何改动，不回溯、不终止，每个环节都走到。</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/5.png" alt="图 5."></p>
-<p>所以如果看到方法return super.xxxxx() 那么事件的下一个流向就是走U型下一个目标，稍微记住上面这张图，你就能很快判断出下一个走向是哪个控件的哪个函数。</p>
-<h4 id="5、onInterceptTouchEvent-的作用"><a href="#5、onInterceptTouchEvent-的作用" class="headerlink" title="5、onInterceptTouchEvent 的作用"></a>5、onInterceptTouchEvent 的作用</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/6.png" alt="图 6."></p>
-<ul>
-<li><p>Intercept 的意思就拦截，每个ViewGroup每次在做分发的时候，问一问拦截器要不要拦截（也就是问问自己这个事件要不要自己来处理）如果要自己处理那就在onInterceptTouchEvent方法中 return true就会交给自己的onTouchEvent的处理，如果不拦截就是继续往子控件往下传。</p>
-</li>
-<li><p>默认是不会去拦截的，因为子View也需要这个事件，所以onInterceptTouchEvent拦截器return super.onInterceptTouchEvent()和return false是一样的，是不会拦截的，事件会继续往子View的dispatchTouchEvent传递。</p>
-</li>
-</ul>
-<h4 id="6、ViewGroup-和View-的dispatchTouchEvent方法返回super-dispatchTouchEvent-的时候事件流走向。"><a href="#6、ViewGroup-和View-的dispatchTouchEvent方法返回super-dispatchTouchEvent-的时候事件流走向。" class="headerlink" title="6、ViewGroup 和View 的dispatchTouchEvent方法返回super.dispatchTouchEvent()的时候事件流走向。"></a>6、ViewGroup 和View 的dispatchTouchEvent方法返回super.dispatchTouchEvent()的时候事件流走向。</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/7.png" alt="图 7."></p>
-<ul>
-<li><p>首先看下ViewGroup 的dispatchTouchEvent，之前说的return true是终结传递。return false 是回溯到父View的onTouchEvent，然后ViewGroup怎样通过dispatchTouchEvent方法能把事件分发到自己的onTouchEvent处理呢，return true和false 都不行，那么只能通过Interceptor把事件拦截下来给自己的onTouchEvent，所以ViewGroup dispatchTouchEvent方法的super默认实现就是去调用onInterceptTouchEvent，记住这一点。</p>
-</li>
-<li><p>那么对于View的dispatchTouchEvent return super.dispatchTouchEvent()的时候呢事件会传到哪里呢，很遗憾View没有拦截器。但是同样的道理return true是终结。return false 是回溯会父类的onTouchEvent，怎样把事件分发给自己的onTouchEvent 处理呢，那只能return super.dispatchTouchEvent,View类的dispatchTouchEvent（）方法默认实现就是能帮你调用View自己的onTouchEvent方法的。</p>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>说了这么多，不知道有说清楚没有，我这边最后总结一下：</p>
-<ul>
-<li>对于 dispatchTouchEvent，onTouchEvent，return true是终结事件传递。return false 是回溯到父View的onTouchEvent方法。</li>
-<li>ViewGroup 想把自己分发给自己的onTouchEvent，需要拦截器onInterceptTouchEvent方法return true 把事件拦截下来。</li>
-<li>ViewGroup 的拦截器onInterceptTouchEvent 默认是不拦截的，所以return super.onInterceptTouchEvent()=return false；</li>
-<li>View 没有拦截器，为了让View可以把事件分发给自己的onTouchEvent，View的dispatchTouchEvent默认实现（super）就是把事件分发给自己的onTouchEvent。<br>ViewGroup和View 的dispatchTouchEvent 是做事件分发，那么这个事件可能分发出去的四个目标: <h3 id="注：——-gt-后面代表事件目标需要怎么做。"><a href="#注：——-gt-后面代表事件目标需要怎么做。" class="headerlink" title="注：——&gt; 后面代表事件目标需要怎么做。"></a>注：——&gt; 后面代表事件目标需要怎么做。</h3></li>
-</ul>
-<ol>
-<li>自己消费，终结传递。——-&gt;return true ；</li>
-<li>给自己的onTouchEvent处理——-&gt; 调用super.dispatchTouchEvent()系统默认会去调用 onInterceptTouchEvent，在onInterceptTouchEvent return true就会去把事件分给自己的onTouchEvent处理。</li>
-<li>传给子View——&gt;调用super.dispatchTouchEvent()默认实现会去调用 onInterceptTouchEvent 在onInterceptTouchEvent return false，就会把事件传给子类。</li>
-<li>不传给子View，事件终止往下传递，事件开始回溯，从父View的onTouchEvent开始事件从下到上回归执行每个控件的onTouchEvent——-&gt;return false；</li>
-</ol>
-<h4 id="注：-由于View没有子View所以不需要onInterceptTouchEvent-来控件是否把事件传递给子View还是拦截，所以View的事件分发调用super-dispatchTouchEvent-的时候默认把事件传给自己的onTouchEvent处理（相当于拦截），对比ViewGroup的dispatchTouchEvent-事件分发，View的事件分发没有上面提到的4个目标的第3点。"><a href="#注：-由于View没有子View所以不需要onInterceptTouchEvent-来控件是否把事件传递给子View还是拦截，所以View的事件分发调用super-dispatchTouchEvent-的时候默认把事件传给自己的onTouchEvent处理（相当于拦截），对比ViewGroup的dispatchTouchEvent-事件分发，View的事件分发没有上面提到的4个目标的第3点。" class="headerlink" title="注： 由于View没有子View所以不需要onInterceptTouchEvent 来控件是否把事件传递给子View还是拦截，所以View的事件分发调用super.dispatchTouchEvent()的时候默认把事件传给自己的onTouchEvent处理（相当于拦截），对比ViewGroup的dispatchTouchEvent 事件分发，View的事件分发没有上面提到的4个目标的第3点。"></a>注： 由于View没有子View所以不需要onInterceptTouchEvent 来控件是否把事件传递给子View还是拦截，所以View的事件分发调用super.dispatchTouchEvent()的时候默认把事件传给自己的onTouchEvent处理（相当于拦截），对比ViewGroup的dispatchTouchEvent 事件分发，View的事件分发没有上面提到的4个目标的第3点。</h4><p>ViewGroup和View的onTouchEvent方法是做事件处理的，那么这个事件只能有两个处理方式： </p>
-<ol>
-<li>自己消费掉，事件终结，不再传给谁—–&gt;return true; </li>
-<li>继续从下往上传，不消费事件，让父View也能收到到这个事件—–&gt;return false;View的默认实现是不消费的。所以superfalse。</li>
-</ol>
-<p>ViewGroup的onInterceptTouchEvent方法对于事件有两种情况： </p>
-<ol>
-<li>拦截下来，给自己的onTouchEvent处理—&gt;return true; </li>
-<li>不拦截，把事件往下传给子View—-&gt;return false,ViewGroup默认是不拦截的，所以superfalse；</li>
-</ol>
-<h3 id="关于ACTIONMOVE-和-ACTIONUP"><a href="#关于ACTIONMOVE-和-ACTIONUP" class="headerlink" title="关于ACTIONMOVE 和 ACTIONUP"></a>关于ACTIONMOVE 和 ACTIONUP</h3><p>上面讲解的都是针对ACTIONDOWN的事件传递，ACTIONMOVE和ACTIONUP在传递的过程中并不是和ACTIONDOWN 一样，你在执行ACTIONDOWN的时候返回了false，后面一系列其它的action就不会再得到执行了。简单的说，就是当dispatchTouchEvent在进行事件分发的时候，只有前一个事件（如ACTIONDOWN）返回true，才会收到ACTIONMOVE和ACTIONUP的事件。具体这句话很多博客都说了，但是具体含义是什么呢？我们来看一下下面的具体分析。</p>
-<p>上面提到过了，事件如果不被打断的话是会不断往下传到叶子层（View），然后又不断回传到Activity，dispatchTouchEvent 和 onTouchEvent 可以通过return true 消费事件，终结事件传递，而onInterceptTouchEvent 并不能消费事件，它相当于是一个分叉口起到分流导流的作用，ACTIONMOVE和ACTIONUP 会在哪些函数被调用，之前说了并不是哪个函数收到了ACTIONDOWN，就会收到 ACTIONMOVE 等后续的事件的。 下面通过几张图看看不同场景下，ACTIONMOVE事件和ACTIONUP事件的具体走向并总结一下规律。</p>
-<h4 id="1、我们在ViewGroup1-的dispatchTouchEvent-方法返回true消费这次事件"><a href="#1、我们在ViewGroup1-的dispatchTouchEvent-方法返回true消费这次事件" class="headerlink" title="1、我们在ViewGroup1 的dispatchTouchEvent 方法返回true消费这次事件"></a>1、我们在ViewGroup1 的dispatchTouchEvent 方法返回true消费这次事件</h4><p>ACTIONDOWN 事件从（Activity的dispatchTouchEvent）——–&gt; （ViewGroup1 的dispatchTouchEvent） 后结束传递，事件被消费（如下图红色的箭头代码ACTIONDOWN 事件的流向）。</p>
-<pre><code>//打印日志
-Activity | dispatchTouchEvent --&gt; ACTION_DOWN  
-ViewGroup1 | dispatchTouchEvent --&gt; ACTION_DOWN  
-----&gt;消费
-</code></pre><p><img src="http://xdeveloper.cn/content/images/2017/04/8.png" alt="图 8."></p>
-<p>在这种场景下ACTIONMOVE和ACTIONUP 将如何呢，看下面的打出来的日志</p>
-<pre><code>Activity | dispatchTouchEvent --&gt; ACTION_MOVE  
-ViewGroup1 | dispatchTouchEvent --&gt; ACTION_MOVE  
-----
-TouchEventActivity | dispatchTouchEvent --&gt; ACTION_UP  
-ViewGroup1 | dispatchTouchEvent --&gt; ACTION_UP  
-</code></pre><p>下图中 红色的箭头代表ACTIONDOWN 事件的流向 蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/9.png" alt="图 9."></p>
-<h4 id="2、我们在ViewGroup2-的dispatchTouchEvent-返回true消费这次事件"><a href="#2、我们在ViewGroup2-的dispatchTouchEvent-返回true消费这次事件" class="headerlink" title="2、我们在ViewGroup2 的dispatchTouchEvent 返回true消费这次事件"></a>2、我们在ViewGroup2 的dispatchTouchEvent 返回true消费这次事件</h4><blockquote>
-<p>Activity | dispatchTouchEvent –&gt; ACTION_DOWN<br>ViewGroup1 | dispatchTouchEvent –&gt; ACTION_DOWN<br>ViewGroup1 | onInterceptTouchEvent –&gt; ACTION_DOWN<br>ViewGroup2 | dispatchTouchEvent –&gt; ACTION_DOWN<br>—-&gt;消费<br>Activity | dispatchTouchEvent –&gt; ACTION_MOVE<br>ViewGroup1 | dispatchTouchEvent –&gt; ACTION_MOVE<br>ViewGroup1 | onInterceptTouchEvent –&gt; ACTION_MOVE  </p>
-<h2 id="ViewGroup2-dispatchTouchEvent-–-gt-ACTION-MOVE"><a href="#ViewGroup2-dispatchTouchEvent-–-gt-ACTION-MOVE" class="headerlink" title="ViewGroup2 | dispatchTouchEvent –&gt; ACTION_MOVE  "></a>ViewGroup2 | dispatchTouchEvent –&gt; ACTION_MOVE  </h2><p>TouchEventActivity | dispatchTouchEvent –&gt; ACTION_UP<br>ViewGroup1 | dispatchTouchEvent –&gt; ACTION_UP<br>ViewGroup1 | onInterceptTouchEvent –&gt; ACTION_UP  </p>
-<h2 id="ViewGroup2-dispatchTouchEvent-–-gt-ACTION-UP"><a href="#ViewGroup2-dispatchTouchEvent-–-gt-ACTION-UP" class="headerlink" title="ViewGroup2 | dispatchTouchEvent –&gt; ACTION_UP  "></a>ViewGroup2 | dispatchTouchEvent –&gt; ACTION_UP  </h2></blockquote>
-<p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/10.png" alt="图 10."></p>
-<h4 id="3、我们在View-的dispatchTouchEvent-返回true消费这次事件"><a href="#3、我们在View-的dispatchTouchEvent-返回true消费这次事件" class="headerlink" title="3、我们在View 的dispatchTouchEvent 返回true消费这次事件"></a>3、我们在View 的dispatchTouchEvent 返回true消费这次事件</h4><p>这个我不就画图了，效果和在ViewGroup2 的dispatchTouchEvent return true的差不多，同样的收到ACTIONDOWN 的dispatchTouchEvent函数都能收到 ACTIONMOVE和ACTIONUP。 所以我们就基本可以得出结论如果在某个控件的dispatchTouchEvent 返回true消费终结事件，那么收到ACTIONDOWN 的函数也能收到 ACTIONMOVE和ACTIONUP。</p>
-<h4 id="4、我们在View-的onTouchEvent-返回true消费这次事件"><a href="#4、我们在View-的onTouchEvent-返回true消费这次事件" class="headerlink" title="4、我们在View 的onTouchEvent 返回true消费这次事件"></a>4、我们在View 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/11.png" alt="图 11."></p>
-<h4 id="5、我们在ViewGroup-2-的onTouchEvent-返回true消费这次事件"><a href="#5、我们在ViewGroup-2-的onTouchEvent-返回true消费这次事件" class="headerlink" title="5、我们在ViewGroup 2 的onTouchEvent 返回true消费这次事件"></a>5、我们在ViewGroup 2 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向 </p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/12.png" alt="图 12."></p>
-<h4 id="6、我们在ViewGroup-1-的onTouchEvent-返回true消费这次事件"><a href="#6、我们在ViewGroup-1-的onTouchEvent-返回true消费这次事件" class="headerlink" title="6、我们在ViewGroup 1 的onTouchEvent 返回true消费这次事件"></a>6、我们在ViewGroup 1 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/13.png" alt="图 13."></p>
-<h4 id="7、我们在Activity-的onTouchEvent-返回true消费这次事件"><a href="#7、我们在Activity-的onTouchEvent-返回true消费这次事件" class="headerlink" title="7、我们在Activity 的onTouchEvent 返回true消费这次事件"></a>7、我们在Activity 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/14.png" alt="图 14."></p>
-<h4 id="8、我们在View的dispatchTouchEvent-返回false并且Activity-的onTouchEvent-返回true消费这次事件"><a href="#8、我们在View的dispatchTouchEvent-返回false并且Activity-的onTouchEvent-返回true消费这次事件" class="headerlink" title="8、我们在View的dispatchTouchEvent 返回false并且Activity 的onTouchEvent 返回true消费这次事件"></a>8、我们在View的dispatchTouchEvent 返回false并且Activity 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/15.png" alt="图 15."></p>
-<h4 id="9、我们在View的dispatchTouchEvent-返回false并且ViewGroup-1-的onTouchEvent-返回true消费这次事件"><a href="#9、我们在View的dispatchTouchEvent-返回false并且ViewGroup-1-的onTouchEvent-返回true消费这次事件" class="headerlink" title="9、我们在View的dispatchTouchEvent 返回false并且ViewGroup 1 的onTouchEvent 返回true消费这次事件"></a>9、我们在View的dispatchTouchEvent 返回false并且ViewGroup 1 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/16.png" alt="图 16."></p>
-<h4 id="10、我们在View的dispatchTouchEvent-返回false并且在ViewGroup-2-的onTouchEvent-返回true消费这次事件"><a href="#10、我们在View的dispatchTouchEvent-返回false并且在ViewGroup-2-的onTouchEvent-返回true消费这次事件" class="headerlink" title="10、我们在View的dispatchTouchEvent 返回false并且在ViewGroup 2 的onTouchEvent 返回true消费这次事件"></a>10、我们在View的dispatchTouchEvent 返回false并且在ViewGroup 2 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/17.png" alt="图 17."></p>
-<h4 id="11、我们在ViewGroup2的dispatchTouchEvent-返回false并且在ViewGroup1-的onTouchEvent返回true消费这次事件"><a href="#11、我们在ViewGroup2的dispatchTouchEvent-返回false并且在ViewGroup1-的onTouchEvent返回true消费这次事件" class="headerlink" title="11、我们在ViewGroup2的dispatchTouchEvent 返回false并且在ViewGroup1 的onTouchEvent返回true消费这次事件"></a>11、我们在ViewGroup2的dispatchTouchEvent 返回false并且在ViewGroup1 的onTouchEvent返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/18.png" alt="图 18."></p>
-<h4 id="12、我们在ViewGroup2的onInterceptTouchEvent-返回true拦截此次事件并且在ViewGroup-1-的onTouchEvent返回true消费这次事件。"><a href="#12、我们在ViewGroup2的onInterceptTouchEvent-返回true拦截此次事件并且在ViewGroup-1-的onTouchEvent返回true消费这次事件。" class="headerlink" title="12、我们在ViewGroup2的onInterceptTouchEvent 返回true拦截此次事件并且在ViewGroup 1 的onTouchEvent返回true消费这次事件。"></a>12、我们在ViewGroup2的onInterceptTouchEvent 返回true拦截此次事件并且在ViewGroup 1 的onTouchEvent返回true消费这次事件。</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
-<p><img src="http://xdeveloper.cn/content/images/2017/04/19.png" alt="图 19."></p>
-<p>一下子画了好多图，还有好几种情况就不再画了，相信你也看出规律了，对于在onTouchEvent消费事件的情况：在哪个View的onTouchEvent 返回true，那么ACTIONMOVE和ACTIONUP的事件从上往下传到这个View后就不再往下传递了，而直接传给自己的onTouchEvent 并结束本次事件传递过程。</p>
-<p>对于ACTIONMOVE、ACTIONUP总结：ACTIONDOWN事件在哪个控件消费了（return true）， 那么ACTIONMOVE和ACTIONUP就会从上往下（通过dispatchTouchEvent）做事件分发往下传，就只会传到这个控件，不会继续往下传，如果ACTIONDOWN事件是在dispatchTouchEvent消费，那么事件到此为止停止传递，如果ACTIONDOWN事件是在onTouchEvent消费的，那么会把ACTIONMOVE或ACTION_UP事件传给该控件的onTouchEvent处理并结束传递。</p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[Android View的绘制流程]]></title>
-      <url>https://github.com/pangrongxian/2016/08/08/Android%20View%E7%9A%84%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B/</url>
+      <url>https://github.com/pangrongxian/2017/06/16/Android%20View%E7%9A%84%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B/</url>
       <content type="html"><![CDATA[<p>View的绘制和事件处理是两个重要的主题，上一篇《图解 Android事件分发机制》已经把事件的分发机制讲得比较详细了，这一篇是针对View的绘制，View的绘制如果你有所了解，基本分为measure、layout、draw 过程，其中比较难理解就是measure过程，所以本篇文章大幅笔地分析measure过程，相对讲得比较详细，文章也比较长，如果你对View的绘制还不是很懂，对measure过程掌握得不是很深刻，那么耐心点，看完这篇文章，相信你会有所收获的。</p>
 <p>转自：<a href="http://www.jianshu.com/p/5a71014e7b1b" target="_blank" rel="external">http://www.jianshu.com/p/5a71014e7b1b</a></p>
 <pre><code>【转载请明显注明出处，尊重劳动成果】
@@ -442,8 +323,127 @@ AT_MOST：子容器可以是声明大小内的任意大小
     </entry>
     
     <entry>
+      <title><![CDATA[Android 事件分发机制]]></title>
+      <url>https://github.com/pangrongxian/2017/06/16/%E5%9B%BE%E8%A7%A3%20Android%20%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/</url>
+      <content type="html"><![CDATA[<p>转自：<a href="http://www.jianshu.com/p/e99b5e8bd67b" target="_blank" rel="external">http://www.jianshu.com/p/e99b5e8bd67b</a> </p>
+<p>为什么转载这篇文章？因为它能让你很容易的把事件分发记在你的脑海，感觉自己写不出比这更好的文章了，推荐！</p>
+<pre><code>在 Android 开发中，事件分发机制是一块Android 比较重要的知识体系，了解并熟悉整套的
+
+分发机制有助于更好的分析各种点击滑动失效问题，更好去扩展控件的事件功能和开发自
+
+定义控件，同时事件分发机制也是 Android 面试必问考点之一，如果你能把下面的一些事
+
+件分发图当场画出来肯定加分不少。废话不多说，总结一句:事件分发机制很重要。
+</code></pre><h2 id="Android-事件分发流"><a href="#Android-事件分发流" class="headerlink" title="Android 事件分发流"></a>Android 事件分发流</h2><p>关于Android 事件分发机制网上的博文很多，但是很多都是写个Demo然后贴一下输出的Log或者拿源码分析，然后一堆的注释和说明，如果用心的去看肯定是收获不少但是确实很难把整个流程说清和记住。曾经也是拼命想记住整个流程，但是一段时间又忘了，最后觉得分析这种问题和事件流的走向，一张图来解释和说明会清晰很多，下面我根据画的一张事件分发流程图,说明的事件从用户点击之后，在不同函数不同返回值的情况的最终走向。</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/1.png" alt="图 1."></p>
+<ul>
+<li>仔细看的话，图分为3层，从上往下依次是Activity、ViewGroup、View</li>
+<li>事件从左上角那个白色箭头开始，由Activity的dispatchTouchEvent做分发</li>
+<li>箭头的上面字代表方法返回值，（return true、return false、return - - -   super.xxxxx(),super 的意思是调用父类实现。</li>
+<li>dispatchTouchEvent和 onTouchEvent的框里有个【true—-&gt;消费】的字，表示的意思是如果方法返回true，那么代表事件就此消费，不会继续往别的地方传了，事件终止。</li>
+<li>目前所有的图的事件是针对ACTIONDOWN的，对于ACTIONMOVE和ACTION_UP我们最后做分析。</li>
+<li>之前图中的Activity 的dispatchTouchEvent 有误（图已修复），只有return super.dispatchTouchEvent(ev) 才是往下走，返回true 或者 false 事件就被消费了（终止传递）。</li>
+</ul>
+<p>仔细看整个图，我们得出事件流 走向的几个结论（希望读者专心的看下图 1，多看几遍，脑子有比较清晰的概念。）</p>
+<h4 id="1、如果事件不被中断，整个事件流向是一个类U型图，我们来看下这张图，可能更能理解U型图的意思。"><a href="#1、如果事件不被中断，整个事件流向是一个类U型图，我们来看下这张图，可能更能理解U型图的意思。" class="headerlink" title="1、如果事件不被中断，整个事件流向是一个类U型图，我们来看下这张图，可能更能理解U型图的意思。"></a>1、如果事件不被中断，整个事件流向是一个类U型图，我们来看下这张图，可能更能理解U型图的意思。</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/2.png" alt="图 2."></p>
+<p>所以如果我们没有对控件里面的方法进行重写或更改返回值，而直接用super调用父类的默认实现，那么整个事件流向应该是从<strong>Activity</strong>—-&gt;<strong>ViewGroup</strong>—&gt;<strong>View</strong> 从上往下调用<strong>dispatchTouchEvent</strong>方法，一直到叶子节点（View）的时候，再由<strong>View</strong>—&gt;<strong>ViewGroup</strong>—&gt;<strong>Activity</strong>从下往上调用<strong>onTouchEvent</strong>方法。</p>
+<h4 id="2、dispatchTouchEvent-和-onTouchEvent-一旦return-true-事件就停止传递了（到达终点）（没有谁能再收到这个事件）。看下图中只要return-true事件就没再继续传下去了，对于return-true我们经常说事件被消费了，消费了的意思就是事件走到这里就是终点，不会往下传，没有谁能再收到这个事件了。"><a href="#2、dispatchTouchEvent-和-onTouchEvent-一旦return-true-事件就停止传递了（到达终点）（没有谁能再收到这个事件）。看下图中只要return-true事件就没再继续传下去了，对于return-true我们经常说事件被消费了，消费了的意思就是事件走到这里就是终点，不会往下传，没有谁能再收到这个事件了。" class="headerlink" title="2、dispatchTouchEvent 和 onTouchEvent 一旦return true,事件就停止传递了（到达终点）（没有谁能再收到这个事件）。看下图中只要return true事件就没再继续传下去了，对于return true我们经常说事件被消费了，消费了的意思就是事件走到这里就是终点，不会往下传，没有谁能再收到这个事件了。"></a>2、dispatchTouchEvent 和 onTouchEvent 一旦return true,事件就停止传递了（到达终点）（没有谁能再收到这个事件）。看下图中只要return true事件就没再继续传下去了，对于return true我们经常说事件被消费了，消费了的意思就是事件走到这里就是终点，不会往下传，没有谁能再收到这个事件了。</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/3.png" alt="图 3."></p>
+<h4 id="3、dispatchTouchEvent-和-onTouchEvent-return-false的时候事件都回传给父控件的onTouchEvent处理。"><a href="#3、dispatchTouchEvent-和-onTouchEvent-return-false的时候事件都回传给父控件的onTouchEvent处理。" class="headerlink" title="3、dispatchTouchEvent 和 onTouchEvent return false的时候事件都回传给父控件的onTouchEvent处理。"></a>3、dispatchTouchEvent 和 onTouchEvent return false的时候事件都回传给父控件的onTouchEvent处理。</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/4.png" alt="图 4."></p>
+<p>看上图深蓝色的线，对于返回false的情况，事件都是传给父控件onTouchEvent处理。</p>
+<ul>
+<li><p>对于dispatchTouchEvent 返回 false 的含义应该是：事件停止往子View传递和分发同时开始往父控件回溯（父控件的onTouchEvent开始从下往上回传直到某个onTouchEvent return true），事件分发机制就像递归，return false 的意义就是递归停止然后开始回溯。</p>
+</li>
+<li><p>对于onTouchEvent return false 就比较简单了，它就是不消费事件，并让事件继续往父控件的方向从下往上流动。</p>
+</li>
+</ul>
+<h4 id="4、dispatchTouchEvent、onTouchEvent、onInterceptTouchEvent-ViewGroup-和View的这些方法的默认实现就是会让整个事件安装U型完整走完，所以-return-super-xxxxxx-就会让事件依照U型的方向的完整走完整个事件流动路径），中间不做任何改动，不回溯、不终止，每个环节都走到。"><a href="#4、dispatchTouchEvent、onTouchEvent、onInterceptTouchEvent-ViewGroup-和View的这些方法的默认实现就是会让整个事件安装U型完整走完，所以-return-super-xxxxxx-就会让事件依照U型的方向的完整走完整个事件流动路径），中间不做任何改动，不回溯、不终止，每个环节都走到。" class="headerlink" title="4、dispatchTouchEvent、onTouchEvent、onInterceptTouchEvent ViewGroup 和View的这些方法的默认实现就是会让整个事件安装U型完整走完，所以 return super.xxxxxx() 就会让事件依照U型的方向的完整走完整个事件流动路径），中间不做任何改动，不回溯、不终止，每个环节都走到。"></a>4、dispatchTouchEvent、onTouchEvent、onInterceptTouchEvent ViewGroup 和View的这些方法的默认实现就是会让整个事件安装U型完整走完，所以 return super.xxxxxx() 就会让事件依照U型的方向的完整走完整个事件流动路径），中间不做任何改动，不回溯、不终止，每个环节都走到。</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/5.png" alt="图 5."></p>
+<p>所以如果看到方法return super.xxxxx() 那么事件的下一个流向就是走U型下一个目标，稍微记住上面这张图，你就能很快判断出下一个走向是哪个控件的哪个函数。</p>
+<h4 id="5、onInterceptTouchEvent-的作用"><a href="#5、onInterceptTouchEvent-的作用" class="headerlink" title="5、onInterceptTouchEvent 的作用"></a>5、onInterceptTouchEvent 的作用</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/6.png" alt="图 6."></p>
+<ul>
+<li><p>Intercept 的意思就拦截，每个ViewGroup每次在做分发的时候，问一问拦截器要不要拦截（也就是问问自己这个事件要不要自己来处理）如果要自己处理那就在onInterceptTouchEvent方法中 return true就会交给自己的onTouchEvent的处理，如果不拦截就是继续往子控件往下传。</p>
+</li>
+<li><p>默认是不会去拦截的，因为子View也需要这个事件，所以onInterceptTouchEvent拦截器return super.onInterceptTouchEvent()和return false是一样的，是不会拦截的，事件会继续往子View的dispatchTouchEvent传递。</p>
+</li>
+</ul>
+<h4 id="6、ViewGroup-和View-的dispatchTouchEvent方法返回super-dispatchTouchEvent-的时候事件流走向。"><a href="#6、ViewGroup-和View-的dispatchTouchEvent方法返回super-dispatchTouchEvent-的时候事件流走向。" class="headerlink" title="6、ViewGroup 和View 的dispatchTouchEvent方法返回super.dispatchTouchEvent()的时候事件流走向。"></a>6、ViewGroup 和View 的dispatchTouchEvent方法返回super.dispatchTouchEvent()的时候事件流走向。</h4><p><img src="http://xdeveloper.cn/content/images/2017/04/7.png" alt="图 7."></p>
+<ul>
+<li><p>首先看下ViewGroup 的dispatchTouchEvent，之前说的return true是终结传递。return false 是回溯到父View的onTouchEvent，然后ViewGroup怎样通过dispatchTouchEvent方法能把事件分发到自己的onTouchEvent处理呢，return true和false 都不行，那么只能通过Interceptor把事件拦截下来给自己的onTouchEvent，所以ViewGroup dispatchTouchEvent方法的super默认实现就是去调用onInterceptTouchEvent，记住这一点。</p>
+</li>
+<li><p>那么对于View的dispatchTouchEvent return super.dispatchTouchEvent()的时候呢事件会传到哪里呢，很遗憾View没有拦截器。但是同样的道理return true是终结。return false 是回溯会父类的onTouchEvent，怎样把事件分发给自己的onTouchEvent 处理呢，那只能return super.dispatchTouchEvent,View类的dispatchTouchEvent（）方法默认实现就是能帮你调用View自己的onTouchEvent方法的。</p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>说了这么多，不知道有说清楚没有，我这边最后总结一下：</p>
+<ul>
+<li>对于 dispatchTouchEvent，onTouchEvent，return true是终结事件传递。return false 是回溯到父View的onTouchEvent方法。</li>
+<li>ViewGroup 想把自己分发给自己的onTouchEvent，需要拦截器onInterceptTouchEvent方法return true 把事件拦截下来。</li>
+<li>ViewGroup 的拦截器onInterceptTouchEvent 默认是不拦截的，所以return super.onInterceptTouchEvent()=return false；</li>
+<li>View 没有拦截器，为了让View可以把事件分发给自己的onTouchEvent，View的dispatchTouchEvent默认实现（super）就是把事件分发给自己的onTouchEvent。<br>ViewGroup和View 的dispatchTouchEvent 是做事件分发，那么这个事件可能分发出去的四个目标: <h3 id="注：——-gt-后面代表事件目标需要怎么做。"><a href="#注：——-gt-后面代表事件目标需要怎么做。" class="headerlink" title="注：——&gt; 后面代表事件目标需要怎么做。"></a>注：——&gt; 后面代表事件目标需要怎么做。</h3></li>
+</ul>
+<ol>
+<li>自己消费，终结传递。——-&gt;return true ；</li>
+<li>给自己的onTouchEvent处理——-&gt; 调用super.dispatchTouchEvent()系统默认会去调用 onInterceptTouchEvent，在onInterceptTouchEvent return true就会去把事件分给自己的onTouchEvent处理。</li>
+<li>传给子View——&gt;调用super.dispatchTouchEvent()默认实现会去调用 onInterceptTouchEvent 在onInterceptTouchEvent return false，就会把事件传给子类。</li>
+<li>不传给子View，事件终止往下传递，事件开始回溯，从父View的onTouchEvent开始事件从下到上回归执行每个控件的onTouchEvent——-&gt;return false；</li>
+</ol>
+<h4 id="注：-由于View没有子View所以不需要onInterceptTouchEvent-来控件是否把事件传递给子View还是拦截，所以View的事件分发调用super-dispatchTouchEvent-的时候默认把事件传给自己的onTouchEvent处理（相当于拦截），对比ViewGroup的dispatchTouchEvent-事件分发，View的事件分发没有上面提到的4个目标的第3点。"><a href="#注：-由于View没有子View所以不需要onInterceptTouchEvent-来控件是否把事件传递给子View还是拦截，所以View的事件分发调用super-dispatchTouchEvent-的时候默认把事件传给自己的onTouchEvent处理（相当于拦截），对比ViewGroup的dispatchTouchEvent-事件分发，View的事件分发没有上面提到的4个目标的第3点。" class="headerlink" title="注： 由于View没有子View所以不需要onInterceptTouchEvent 来控件是否把事件传递给子View还是拦截，所以View的事件分发调用super.dispatchTouchEvent()的时候默认把事件传给自己的onTouchEvent处理（相当于拦截），对比ViewGroup的dispatchTouchEvent 事件分发，View的事件分发没有上面提到的4个目标的第3点。"></a>注： 由于View没有子View所以不需要onInterceptTouchEvent 来控件是否把事件传递给子View还是拦截，所以View的事件分发调用super.dispatchTouchEvent()的时候默认把事件传给自己的onTouchEvent处理（相当于拦截），对比ViewGroup的dispatchTouchEvent 事件分发，View的事件分发没有上面提到的4个目标的第3点。</h4><p>ViewGroup和View的onTouchEvent方法是做事件处理的，那么这个事件只能有两个处理方式： </p>
+<ol>
+<li>自己消费掉，事件终结，不再传给谁—–&gt;return true; </li>
+<li>继续从下往上传，不消费事件，让父View也能收到到这个事件—–&gt;return false;View的默认实现是不消费的。所以superfalse。</li>
+</ol>
+<p>ViewGroup的onInterceptTouchEvent方法对于事件有两种情况： </p>
+<ol>
+<li>拦截下来，给自己的onTouchEvent处理—&gt;return true; </li>
+<li>不拦截，把事件往下传给子View—-&gt;return false,ViewGroup默认是不拦截的，所以superfalse；</li>
+</ol>
+<h3 id="关于ACTIONMOVE-和-ACTIONUP"><a href="#关于ACTIONMOVE-和-ACTIONUP" class="headerlink" title="关于ACTIONMOVE 和 ACTIONUP"></a>关于ACTIONMOVE 和 ACTIONUP</h3><p>上面讲解的都是针对ACTIONDOWN的事件传递，ACTIONMOVE和ACTIONUP在传递的过程中并不是和ACTIONDOWN 一样，你在执行ACTIONDOWN的时候返回了false，后面一系列其它的action就不会再得到执行了。简单的说，就是当dispatchTouchEvent在进行事件分发的时候，只有前一个事件（如ACTIONDOWN）返回true，才会收到ACTIONMOVE和ACTIONUP的事件。具体这句话很多博客都说了，但是具体含义是什么呢？我们来看一下下面的具体分析。</p>
+<p>上面提到过了，事件如果不被打断的话是会不断往下传到叶子层（View），然后又不断回传到Activity，dispatchTouchEvent 和 onTouchEvent 可以通过return true 消费事件，终结事件传递，而onInterceptTouchEvent 并不能消费事件，它相当于是一个分叉口起到分流导流的作用，ACTIONMOVE和ACTIONUP 会在哪些函数被调用，之前说了并不是哪个函数收到了ACTIONDOWN，就会收到 ACTIONMOVE 等后续的事件的。 下面通过几张图看看不同场景下，ACTIONMOVE事件和ACTIONUP事件的具体走向并总结一下规律。</p>
+<h4 id="1、我们在ViewGroup1-的dispatchTouchEvent-方法返回true消费这次事件"><a href="#1、我们在ViewGroup1-的dispatchTouchEvent-方法返回true消费这次事件" class="headerlink" title="1、我们在ViewGroup1 的dispatchTouchEvent 方法返回true消费这次事件"></a>1、我们在ViewGroup1 的dispatchTouchEvent 方法返回true消费这次事件</h4><p>ACTIONDOWN 事件从（Activity的dispatchTouchEvent）——–&gt; （ViewGroup1 的dispatchTouchEvent） 后结束传递，事件被消费（如下图红色的箭头代码ACTIONDOWN 事件的流向）。</p>
+<pre><code>//打印日志
+Activity | dispatchTouchEvent --&gt; ACTION_DOWN  
+ViewGroup1 | dispatchTouchEvent --&gt; ACTION_DOWN  
+----&gt;消费
+</code></pre><p><img src="http://xdeveloper.cn/content/images/2017/04/8.png" alt="图 8."></p>
+<p>在这种场景下ACTIONMOVE和ACTIONUP 将如何呢，看下面的打出来的日志</p>
+<pre><code>Activity | dispatchTouchEvent --&gt; ACTION_MOVE  
+ViewGroup1 | dispatchTouchEvent --&gt; ACTION_MOVE  
+----
+TouchEventActivity | dispatchTouchEvent --&gt; ACTION_UP  
+ViewGroup1 | dispatchTouchEvent --&gt; ACTION_UP  
+</code></pre><p>下图中 红色的箭头代表ACTIONDOWN 事件的流向 蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/9.png" alt="图 9."></p>
+<h4 id="2、我们在ViewGroup2-的dispatchTouchEvent-返回true消费这次事件"><a href="#2、我们在ViewGroup2-的dispatchTouchEvent-返回true消费这次事件" class="headerlink" title="2、我们在ViewGroup2 的dispatchTouchEvent 返回true消费这次事件"></a>2、我们在ViewGroup2 的dispatchTouchEvent 返回true消费这次事件</h4><blockquote>
+<p>Activity | dispatchTouchEvent –&gt; ACTION_DOWN<br>ViewGroup1 | dispatchTouchEvent –&gt; ACTION_DOWN<br>ViewGroup1 | onInterceptTouchEvent –&gt; ACTION_DOWN<br>ViewGroup2 | dispatchTouchEvent –&gt; ACTION_DOWN<br>—-&gt;消费<br>Activity | dispatchTouchEvent –&gt; ACTION_MOVE<br>ViewGroup1 | dispatchTouchEvent –&gt; ACTION_MOVE<br>ViewGroup1 | onInterceptTouchEvent –&gt; ACTION_MOVE  </p>
+<h2 id="ViewGroup2-dispatchTouchEvent-–-gt-ACTION-MOVE"><a href="#ViewGroup2-dispatchTouchEvent-–-gt-ACTION-MOVE" class="headerlink" title="ViewGroup2 | dispatchTouchEvent –&gt; ACTION_MOVE  "></a>ViewGroup2 | dispatchTouchEvent –&gt; ACTION_MOVE  </h2><p>TouchEventActivity | dispatchTouchEvent –&gt; ACTION_UP<br>ViewGroup1 | dispatchTouchEvent –&gt; ACTION_UP<br>ViewGroup1 | onInterceptTouchEvent –&gt; ACTION_UP  </p>
+<h2 id="ViewGroup2-dispatchTouchEvent-–-gt-ACTION-UP"><a href="#ViewGroup2-dispatchTouchEvent-–-gt-ACTION-UP" class="headerlink" title="ViewGroup2 | dispatchTouchEvent –&gt; ACTION_UP  "></a>ViewGroup2 | dispatchTouchEvent –&gt; ACTION_UP  </h2></blockquote>
+<p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/10.png" alt="图 10."></p>
+<h4 id="3、我们在View-的dispatchTouchEvent-返回true消费这次事件"><a href="#3、我们在View-的dispatchTouchEvent-返回true消费这次事件" class="headerlink" title="3、我们在View 的dispatchTouchEvent 返回true消费这次事件"></a>3、我们在View 的dispatchTouchEvent 返回true消费这次事件</h4><p>这个我不就画图了，效果和在ViewGroup2 的dispatchTouchEvent return true的差不多，同样的收到ACTIONDOWN 的dispatchTouchEvent函数都能收到 ACTIONMOVE和ACTIONUP。 所以我们就基本可以得出结论如果在某个控件的dispatchTouchEvent 返回true消费终结事件，那么收到ACTIONDOWN 的函数也能收到 ACTIONMOVE和ACTIONUP。</p>
+<h4 id="4、我们在View-的onTouchEvent-返回true消费这次事件"><a href="#4、我们在View-的onTouchEvent-返回true消费这次事件" class="headerlink" title="4、我们在View 的onTouchEvent 返回true消费这次事件"></a>4、我们在View 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/11.png" alt="图 11."></p>
+<h4 id="5、我们在ViewGroup-2-的onTouchEvent-返回true消费这次事件"><a href="#5、我们在ViewGroup-2-的onTouchEvent-返回true消费这次事件" class="headerlink" title="5、我们在ViewGroup 2 的onTouchEvent 返回true消费这次事件"></a>5、我们在ViewGroup 2 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向 </p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/12.png" alt="图 12."></p>
+<h4 id="6、我们在ViewGroup-1-的onTouchEvent-返回true消费这次事件"><a href="#6、我们在ViewGroup-1-的onTouchEvent-返回true消费这次事件" class="headerlink" title="6、我们在ViewGroup 1 的onTouchEvent 返回true消费这次事件"></a>6、我们在ViewGroup 1 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/13.png" alt="图 13."></p>
+<h4 id="7、我们在Activity-的onTouchEvent-返回true消费这次事件"><a href="#7、我们在Activity-的onTouchEvent-返回true消费这次事件" class="headerlink" title="7、我们在Activity 的onTouchEvent 返回true消费这次事件"></a>7、我们在Activity 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/14.png" alt="图 14."></p>
+<h4 id="8、我们在View的dispatchTouchEvent-返回false并且Activity-的onTouchEvent-返回true消费这次事件"><a href="#8、我们在View的dispatchTouchEvent-返回false并且Activity-的onTouchEvent-返回true消费这次事件" class="headerlink" title="8、我们在View的dispatchTouchEvent 返回false并且Activity 的onTouchEvent 返回true消费这次事件"></a>8、我们在View的dispatchTouchEvent 返回false并且Activity 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/15.png" alt="图 15."></p>
+<h4 id="9、我们在View的dispatchTouchEvent-返回false并且ViewGroup-1-的onTouchEvent-返回true消费这次事件"><a href="#9、我们在View的dispatchTouchEvent-返回false并且ViewGroup-1-的onTouchEvent-返回true消费这次事件" class="headerlink" title="9、我们在View的dispatchTouchEvent 返回false并且ViewGroup 1 的onTouchEvent 返回true消费这次事件"></a>9、我们在View的dispatchTouchEvent 返回false并且ViewGroup 1 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/16.png" alt="图 16."></p>
+<h4 id="10、我们在View的dispatchTouchEvent-返回false并且在ViewGroup-2-的onTouchEvent-返回true消费这次事件"><a href="#10、我们在View的dispatchTouchEvent-返回false并且在ViewGroup-2-的onTouchEvent-返回true消费这次事件" class="headerlink" title="10、我们在View的dispatchTouchEvent 返回false并且在ViewGroup 2 的onTouchEvent 返回true消费这次事件"></a>10、我们在View的dispatchTouchEvent 返回false并且在ViewGroup 2 的onTouchEvent 返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/17.png" alt="图 17."></p>
+<h4 id="11、我们在ViewGroup2的dispatchTouchEvent-返回false并且在ViewGroup1-的onTouchEvent返回true消费这次事件"><a href="#11、我们在ViewGroup2的dispatchTouchEvent-返回false并且在ViewGroup1-的onTouchEvent返回true消费这次事件" class="headerlink" title="11、我们在ViewGroup2的dispatchTouchEvent 返回false并且在ViewGroup1 的onTouchEvent返回true消费这次事件"></a>11、我们在ViewGroup2的dispatchTouchEvent 返回false并且在ViewGroup1 的onTouchEvent返回true消费这次事件</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/18.png" alt="图 18."></p>
+<h4 id="12、我们在ViewGroup2的onInterceptTouchEvent-返回true拦截此次事件并且在ViewGroup-1-的onTouchEvent返回true消费这次事件。"><a href="#12、我们在ViewGroup2的onInterceptTouchEvent-返回true拦截此次事件并且在ViewGroup-1-的onTouchEvent返回true消费这次事件。" class="headerlink" title="12、我们在ViewGroup2的onInterceptTouchEvent 返回true拦截此次事件并且在ViewGroup 1 的onTouchEvent返回true消费这次事件。"></a>12、我们在ViewGroup2的onInterceptTouchEvent 返回true拦截此次事件并且在ViewGroup 1 的onTouchEvent返回true消费这次事件。</h4><p>红色的箭头代表ACTIONDOWN 事件的流向<br>蓝色的箭头代表ACTIONMOVE 和 ACTION_UP 事件的流向</p>
+<p><img src="http://xdeveloper.cn/content/images/2017/04/19.png" alt="图 19."></p>
+<p>一下子画了好多图，还有好几种情况就不再画了，相信你也看出规律了，对于在onTouchEvent消费事件的情况：在哪个View的onTouchEvent 返回true，那么ACTIONMOVE和ACTIONUP的事件从上往下传到这个View后就不再往下传递了，而直接传给自己的onTouchEvent 并结束本次事件传递过程。</p>
+<p>对于ACTIONMOVE、ACTIONUP总结：ACTIONDOWN事件在哪个控件消费了（return true）， 那么ACTIONMOVE和ACTIONUP就会从上往下（通过dispatchTouchEvent）做事件分发往下传，就只会传到这个控件，不会继续往下传，如果ACTIONDOWN事件是在dispatchTouchEvent消费，那么事件到此为止停止传递，如果ACTIONDOWN事件是在onTouchEvent消费的，那么会把ACTIONMOVE或ACTION_UP事件传给该控件的onTouchEvent处理并结束传递。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android Studio 插件大集结！]]></title>
-      <url>https://github.com/pangrongxian/2015/08/12/Android%20Studio%20%E6%8F%92%E4%BB%B6%20%E5%A4%A7%E9%9B%86%E7%BB%93/</url>
+      <url>https://github.com/pangrongxian/2016/10/03/Android%20Studio%20%E6%8F%92%E4%BB%B6%20%E5%A4%A7%E9%9B%86%E7%BB%93/</url>
       <content type="html"><![CDATA[<p>标注:本文在Windows环境下进行</p>
 <h1 id="GsonFormat"><a href="#GsonFormat" class="headerlink" title="GsonFormat"></a>GsonFormat</h1><h4 id="GitHub：GsonFormat"><a href="#GitHub：GsonFormat" class="headerlink" title="GitHub：GsonFormat"></a><a href="https://github.com/zzz40500/GsonFormat">GitHub：GsonFormat</a></h4><p>GsonFormat 说是开发中最常用的Android Studio插件绝不为过！</p>
 <p>绝大多数的服务端都以json数据格式返回，而客户端需要根据api接口生成相应的实体类，这个插件</p>
