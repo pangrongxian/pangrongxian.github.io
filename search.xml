@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[Android开发人员不得不收集的代码]]></title>
-      <url>https://github.com/pangrongxian/2016/10/22/as04/</url>
+      <url>https://github.com/pangrongxian/2016/10/22/Android%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%94%B6%E9%9B%86%E7%9A%84%E4%BB%A3%E7%A0%81/</url>
       <content type="html"><![CDATA[<p>本文原作者“Blankj”，通过维权骑士授权品牌馆授权转载。</p>
 <p><a href="https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md">GitHub</a></p>
 <p><a href="https://github.com/Blankj/AndroidUtilCode">README of English</a></p>
@@ -178,7 +178,7 @@
     
     <entry>
       <title><![CDATA[Android 事件分发机制]]></title>
-      <url>https://github.com/pangrongxian/2016/08/15/as02/</url>
+      <url>https://github.com/pangrongxian/2016/08/15/Android%20%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/</url>
       <content type="html"><![CDATA[<p>转自：<a href="http://www.jianshu.com/p/e99b5e8bd67b" target="_blank" rel="external">http://www.jianshu.com/p/e99b5e8bd67b</a> </p>
 <p>为什么转载这篇文章？因为它能让你很容易的把事件分发记在你的脑海，感觉自己写不出比这更好的文章了，推荐！</p>
 <pre><code>在 Android 开发中，事件分发机制是一块Android 比较重要的知识体系，了解并熟悉整套的
@@ -297,7 +297,7 @@ ViewGroup1 | dispatchTouchEvent --&gt; ACTION_UP
     
     <entry>
       <title><![CDATA[Android View的绘制流程]]></title>
-      <url>https://github.com/pangrongxian/2016/08/08/as03/</url>
+      <url>https://github.com/pangrongxian/2016/08/08/Android%20View%E7%9A%84%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B/</url>
       <content type="html"><![CDATA[<p>View的绘制和事件处理是两个重要的主题，上一篇《图解 Android事件分发机制》已经把事件的分发机制讲得比较详细了，这一篇是针对View的绘制，View的绘制如果你有所了解，基本分为measure、layout、draw 过程，其中比较难理解就是measure过程，所以本篇文章大幅笔地分析measure过程，相对讲得比较详细，文章也比较长，如果你对View的绘制还不是很懂，对measure过程掌握得不是很深刻，那么耐心点，看完这篇文章，相信你会有所收获的。</p>
 <p>转自：<a href="http://www.jianshu.com/p/5a71014e7b1b" target="_blank" rel="external">http://www.jianshu.com/p/5a71014e7b1b</a></p>
 <pre><code>【转载请明显注明出处，尊重劳动成果】
@@ -442,8 +442,84 @@ AT_MOST：子容器可以是声明大小内的任意大小
     </entry>
     
     <entry>
+      <title><![CDATA[CleanBlog 博客主题配置]]></title>
+      <url>https://github.com/pangrongxian/2015/12/25/Clean%20Blog%20Hexo%20%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<p><a href="https://github.com/klugjo/hexo-theme-clean-blog">https://github.com/klugjo/hexo-theme-clean-blog</a></p>
+<p>Installation 安装</p>
+<p>$ git clone <a href="https://github.com/klugjo/hexo-theme-clean-blog.git">https://github.com/klugjo/hexo-theme-clean-blog.git</a></p>
+<p>使用 git clone 命令把 clean-blog 主题文件下载到本地</p>
+<p>themes/clean-blog</p>
+<p>Then update your blog’s main _config.yml to set the theme to clean-blog:</p>
+<p>更新你的博客主参数文件 _config.yml ，把主题设置为 clean-blog：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Extensions</div><div class="line">## Plugins: http://hexo.io/plugins/</div><div class="line">## Themes: http://hexo.io/themes/</div><div class="line"></div><div class="line">theme: clean-blog</div><div class="line">Configuration</div></pre></td></tr></table></figure>
+<p>意思是：在主参数配置文件中找到这段代码，把主题 theme 设置成：clean-blog</p>
+<p>Menu  菜单</p>
+<p>The menu is configured in the theme’s _config.yml.</p>
+<p>菜单在主题文件的配置文件_config.yml中去设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># Header</div><div class="line">menu:</div><div class="line">  Home: /</div><div class="line">  Archives: /archives</div><div class="line">  Github:</div><div class="line">    url: https://github.com/klugjo/hexo-theme-clean-blog</div><div class="line">    icon: github</div></pre></td></tr></table></figure>
+<p>The object key is the label and the value is the path, or you can use a icon (font awesome) like menu item.</p>
+<h3 id="Top-Left-Label"><a href="#Top-Left-Label" class="headerlink" title="Top Left Label"></a>Top Left Label</h3><p>The top left label is configured in the theme’s _config.yml. When clicked it will lead to the Home Page.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># Title on top left of menu. Leave empty to use main blog title</div><div class="line">menu_title: Configurable Title</div></pre></td></tr></table></figure>
+<h3 id="Home-Page-cover-image-主页封面图片"><a href="#Home-Page-cover-image-主页封面图片" class="headerlink" title="Home Page cover image - 主页封面图片"></a>Home Page cover image - 主页封面图片</h3><p>The Home Page cover is configured in the theme’s _config.yml. It will be the same for all index type pages.</p>
+<p>主页封面图在主题配置文件_config.yml中设置，其他所有类型的引导页面都是一样的方法去设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># URL of the Home page image</div><div class="line">index_cover: /img/home-bg.jpg</div></pre></td></tr></table></figure>
+<h3 id="Default-post-title"><a href="#Default-post-title" class="headerlink" title="Default post title"></a>Default post title</h3><p>The default post title (used when no title is specified) is configured in the theme’s _config.yml.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># Default post title</div><div class="line">default_post_title: Untitled</div></pre></td></tr></table></figure>
+<h3 id="Comments-评论"><a href="#Comments-评论" class="headerlink" title="Comments  评论"></a>Comments  评论</h3><p>The comments provider is specified in the theme’s _config.yml. If you specify both a disqus_shortname and a facebook.appid there will be 2 sets of comment per post. So choose one.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># Comments. Choose one by filling up the information</div><div class="line">comments:</div><div class="line">  # Disqus comments</div><div class="line">  disqus_shortname: klugjotest</div><div class="line">  # Facebook comments</div><div class="line">  facebook:</div><div class="line">    appid: 123456789012345</div><div class="line">    comment_count: 5</div><div class="line">    comment_colorscheme: light</div></pre></td></tr></table></figure>
+<p>You can too hide the comment in the posts front-matter: //隐藏评论设置 false</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">comment: false </div><div class="line">---</div></pre></td></tr></table></figure>
+<h3 id="Google-Analytics-谷歌分析"><a href="#Google-Analytics-谷歌分析" class="headerlink" title="Google Analytics  //谷歌分析"></a>Google Analytics  //谷歌分析</h3><p>The Google Analytics Tracking ID is configured in the theme’s _config.yml.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># Google Analytics Tracking ID</div><div class="line">google_analytics:</div></pre></td></tr></table></figure>
+<h3 id="Addthis"><a href="#Addthis" class="headerlink" title="Addthis"></a>Addthis</h3><p>The Addthis ID is configured in the theme’s _config.yml.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># Addthis ID</div><div class="line">addthis:</div></pre></td></tr></table></figure>
+<h3 id="Social-Account-社交账户"><a href="#Social-Account-社交账户" class="headerlink" title="Social Account 社交账户"></a>Social Account 社交账户</h3><p>Setup the links to your social pages in the theme’s _config.yml. Links are in the footer.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Social Accounts</div><div class="line">twitter_url:</div><div class="line">facebook_url:</div><div class="line">github_url: https://github.com/klugjo/hexo-theme-clean-blog</div><div class="line">linkedin_url:</div><div class="line">mailto:</div></pre></td></tr></table></figure>
+<h3 id="Author-作者"><a href="#Author-作者" class="headerlink" title="Author 作者"></a>Author 作者</h3><p>The post’s author is specified in the posts front-matter:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">author: Klug Jo</div><div class="line">---</div></pre></td></tr></table></figure>
+<h3 id="Post’s-Cover-Image-文章封面图片"><a href="#Post’s-Cover-Image-文章封面图片" class="headerlink" title="Post’s Cover Image 文章封面图片"></a>Post’s Cover Image 文章封面图片</h3><p>By default, posts will use the home page cover image. You can specify a custom cover in the front-matter:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">title: Excerpts</div><div class="line">date: 2013-12-25 00:23:23</div><div class="line">tags: [&quot;Excertps&quot;]</div><div class="line">cover: /assets/contact-bg.jpg</div><div class="line">---</div></pre></td></tr></table></figure>
+<h3 id="Post’s-Share-Cover-Image-文章分享封面图"><a href="#Post’s-Share-Cover-Image-文章分享封面图" class="headerlink" title="Post’s Share Cover Image  文章分享封面图"></a>Post’s Share Cover Image  文章分享封面图</h3><p>You can specify a custom cover to share yours posts in social medias:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">share_cover: /assets/contact-bg.jpg</div><div class="line">---</div></pre></td></tr></table></figure>
+<h3 id="Post’s-Excerpt-摘录"><a href="#Post’s-Excerpt-摘录" class="headerlink" title="Post’s Excerpt 摘录"></a>Post’s Excerpt 摘录</h3><p>This theme does not support traditional excerpts. To show excerpts on the index page, use subtitle in the front-matter:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">title: Excerpts</div><div class="line">date: 2013-12-25 00:23:23</div><div class="line">tags: [&quot;Excertps&quot;]</div><div class="line">subtitle: Standard Excerpts are not supported in Clean Blog but you can use subtitles in the front matter to display text in the index.</div><div class="line">---</div></pre></td></tr></table></figure>
+<h3 id="Tags-page-标签页"><a href="#Tags-page-标签页" class="headerlink" title="Tags page. 标签页"></a>Tags page. 标签页</h3><blockquote>
+<p>Follow these steps to add a tags page that contains all the tags in your site.</p>
+</blockquote>
+<ul>
+<li>Create a page named tags //创建一个标签页</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new page &quot;tags&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>Edit the newly created page and set page type to tags in the front matter.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">title: All tags</div><div class="line">type: &quot;tags&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>Add tags to the menu in the theme _config.yml: //在主题配置文件中添加标签菜单</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Header</div><div class="line">menu:</div><div class="line">  Home: /</div><div class="line">  Archives: /archives</div><div class="line">  Tags: /tags</div></pre></td></tr></table></figure>
+<h3 id="Categories-page-分类页"><a href="#Categories-page-分类页" class="headerlink" title="Categories page.  //分类页"></a>Categories page.  //分类页</h3><blockquote>
+<p>Follow these steps to add a categories page that contains all the categories in your site.</p>
+</blockquote>
+<ul>
+<li>Create a page named categories //创建一个分类页</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new page &quot;categories&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>Edit the newly created page and set page type to categories in the front matter.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">title: All tags</div><div class="line">type: &quot;categories&quot;</div></pre></td></tr></table></figure>
+<p>//在主题配置文件中添加分类签菜单</p>
+<ul>
+<li>Add Categories to the menu in the theme _config.yml:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Header</div><div class="line">menu:</div><div class="line">  Home: /</div><div class="line">  Archives: /archives</div><div class="line">  Categories: /categories</div></pre></td></tr></table></figure>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android Studio 插件大集结！]]></title>
-      <url>https://github.com/pangrongxian/2015/08/12/as01/</url>
+      <url>https://github.com/pangrongxian/2015/08/12/Android%20Studio%20%E6%8F%92%E4%BB%B6%E5%A4%A7%E9%9B%86%E7%BB%93/</url>
       <content type="html"><![CDATA[<p>标注:本文在Windows环境下进行</p>
 <h1 id="GsonFormat"><a href="#GsonFormat" class="headerlink" title="GsonFormat"></a>GsonFormat</h1><h4 id="GitHub：GsonFormat"><a href="#GitHub：GsonFormat" class="headerlink" title="GitHub：GsonFormat"></a><a href="https://github.com/zzz40500/GsonFormat">GitHub：GsonFormat</a></h4><p>GsonFormat 说是开发中最常用的Android Studio插件绝不为过！</p>
 <p>绝大多数的服务端都以json数据格式返回，而客户端需要根据api接口生成相应的实体类，这个插件</p>
