@@ -282,28 +282,21 @@ AT_MOST：子容器可以是声明大小内的任意大小
 <p>上面的代码对于出来的布局是下面的一张图</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/966283-4a11f92ac8c5e224.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图 1."></p>
 <p>对于上面图可能有些不懂，这边做下说明:</p>
-<blockquote>
 <p>整个图是一个DecorView,DecorView可以理解成整个页面的根View,DecorView是一个FrameLayout,包含两个子View，一个id=statusBarBackground的View和一个是LineaLayout，id=statusB<br>arBackground的View，我们可以先不管（我也不是特别懂这个View,应该就是statusBar的设置<br>背景的一个控件，方便设置statusBar的背景)，而这个LinearLayout比较重要，它包含一个ti<br>tle和一个content，title很好理解其实就是TitleBar或者ActionBar,content就更简单了，setContentView()方法你应该用过吧，android.R.id.content你应该听过吧，没错就是它,content是一个FrameLayout，你写的页面布局通过setContentView加进来就成了content的直接子View。</p>
-</blockquote>
 <p>整个View的布局图如下：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/966283-4096801e91e2eccc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图 1."></p>
 <p>这张图在下面分析measure，会经常用到，主要用于了解递归的时候view 的measure顺序</p>
-<blockquote>
-<p>注:</p>
-<p>1、 header的是个ViewStub,用来惰性加载ActionBar，为了便于分析整个测量过程，我把Theme设成NoActionBar，避免ActionBar 相关的measure干扰整个过程，这样可以忽略掉ActionBar 的测量，在调试代码更清晰。</p>
+<p>注:<br>1、 header的是个ViewStub,用来惰性加载ActionBar，为了便于分析整个测量过程，我把Theme设成NoActionBar，避免ActionBar 相关的measure干扰整个过程，这样可以忽略掉ActionBar 的测量，在调试代码更清晰。</p>
 <p>2、包含Header(ActionBar）和id/content的那个父View，我不知道叫什么名字好，我们姑且叫它ViewRoot（看上图）,它是垂直的LinearLayout，放着整个页面除statusBar的之外所有的东西，叫它ViewRoot 应该还ok，一个代号而已。</p>
-</blockquote>
 <p>既然我们知道整个View的Root是DecorView，那么View的绘制是从哪里开始的呢，我们知道每个Activity 均会创建一个 PhoneWindow对象，是Activity和整个View系统交互的接口，每个Window都对应着一个View和一个ViewRootImpl，Window和View通过ViewRootImpl来建立联系,对于Activity来说，ViewRootImpl是连接WindowManager和DecorView的纽带,绘制的入口是由ViewRootImpl的performTraversals方法来发起Measure，Layout，Draw等流程的。</p>
 <p>我们来看下ViewRootImpl的performTraversals 方法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">private void performTraversals() &#123; </div><div class="line">...... </div><div class="line">int childWidthMeasureSpec = getRootMeasureSpec(mWidth, lp.width); </div><div class="line">int childHeightMeasureSpec = getRootMeasureSpec(mHeight, lp.height); </div><div class="line">...... </div><div class="line">mView.measure(childWidthMeasureSpec, childHeightMeasureSpec); </div><div class="line">......</div><div class="line">mView.layout(0, 0, mView.getMeasuredWidth(), mView.getMeasuredHeight());</div><div class="line">...... </div><div class="line">mView.draw(canvas); </div><div class="line">......</div><div class="line">&#125;</div><div class="line"></div><div class="line">private static int getRootMeasureSpec(int windowSize, int rootDimension) &#123; </div><div class="line">   int measureSpec; </div><div class="line">   switch (rootDimension) &#123; </div><div class="line">   case ViewGroup.LayoutParams.MATCH_PARENT: </div><div class="line">   // Window can&apos;t resize. Force root view to be windowSize.   </div><div class="line">   measureSpec = MeasureSpec.makeMeasureSpec(windowSize,MeasureSpec.EXACTLY);</div><div class="line">   break; </div><div class="line">   ...... </div><div class="line">  &#125; </div><div class="line"> return measureSpec; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>performTraversals 中我们看到的mView其实就是DecorView,View的绘制从DecorView开始， 在mView.measure()的时候调用getRootMeasureSpec获得两个MeasureSpec做为参数，getRootMeasureSpec的两个参数（mWidth, lp.width）mWith和mHeight 是屏幕的宽度和高度， lp是WindowManager.LayoutParams，它的lp.width和lp.height的默认值是MATCH_PARENT,所以通过getRootMeasureSpec 生成的测量规格MeasureSpec 的mode是MATCH_PARENT ，size是屏幕的高宽。<br>因为DecorView 是一个FrameLayout 那么接下来会进入FrameLayout 的measure方法，measure的两个参数就是刚才getRootMeasureSpec的生成的两个MeasureSpec，DecorView的测量开始了。<br>首先是DecorView 的 MeasureSpec ，根据上面的分析DecorView 的 MeasureSpec是Windows传过来的，我们画出DecorView 的MeasureSpec 图：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/966283-c330852c971b02a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/340" alt="图 1."></p>
-<blockquote>
-<p>注：</p>
-<p>1、-1 代表的是EXACTLY，-2 是AT_MOST</p>
-<p>2、由于屏幕的像素是1440x2560,所以DecorView 的MeasureSpec的size 对应于这两个值</p>
-</blockquote>
-<p>那么接下来在FrameLayout 的onMeasure()方法DecorView开始for循环测量自己的子View,测量完所有的子View再来测量自己，由下图可知，接下来要测量ViewRoot的大小</p>
+<pre><code>注：
+1、-1 代表的是EXACTLY，-2 是AT_MOST
+2、由于屏幕的像素是1440x2560,所以DecorView 的MeasureSpec的size 对应于这两个值
+</code></pre><p>那么接下来在FrameLayout 的onMeasure()方法DecorView开始for循环测量自己的子View,测量完所有的子View再来测量自己，由下图可知，接下来要测量ViewRoot的大小</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/966283-4096801e91e2eccc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/540" alt="图 1."></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">//FrameLayout 的测量</div><div class="line">protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;  </div><div class="line">....</div><div class="line">int maxHeight = 0;</div><div class="line">int maxWidth = 0;</div><div class="line">int childState = 0;</div><div class="line">for (int i = 0; i &lt; count; i++) &#123;    </div><div class="line">   final View child = getChildAt(i);    </div><div class="line">   if (mMeasureAllChildren || child.getVisibility() != GONE) &#123;   </div><div class="line">    // 遍历自己的子View，只要不是GONE的都会参与测量，measureChildWithMargins方法在最上面</div><div class="line">    // 的源码已经讲过了，如果忘了回头去看看，基本思想就是父View把自己当MeasureSpec </div><div class="line">    // 传给子View结合子View自己的LayoutParams 算出子View 的MeasureSpec，然后继续往下穿，</div><div class="line">    // 传递叶子节点，叶子节点没有子View，只要负责测量自己就好了。</div><div class="line">     measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, 0);      </div><div class="line">     ....</div><div class="line">     ....</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>DecorView 测量ViewRoot 的时候把自己的widthMeasureSpec和heightMeasureSpec传进去了，接下来你就要去看measureChildWithMargins的源码了</p>
@@ -318,12 +311,9 @@ AT_MOST：子容器可以是声明大小内的任意大小
 <p><img src="http://upload-images.jianshu.io/upload_images/966283-5ce615a3684d7815.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/540" alt="图 1."></p>
 <p>Paste_Image.png<br>Content（android.R.id.content） 是FrameLayout，递归调用开始准备计算id/linear的MeasureSpec，我们先给出结果：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/966283-c7e86f4510ddf84a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图 1."></p>
-<blockquote>
-<p>图中有两个要注意的地方：</p>
-<p>1、id/linear的heightMeasureSpec 的mode=AT_MOST，因为id/linear 的LayoutParams 的layout_height=”wrap_content”</p>
+<p>图中有两个要注意的地方：<br>1、id/linear的heightMeasureSpec 的mode=AT_MOST，因为id/linear 的LayoutParams 的layout_height=”wrap_content”</p>
 <p>2、id/linear的heightMeasureSpec 的size 少了200px, 由上面的代码padding=mPaddingTop + mPaddingBottom + lp.topMargin + lp.bottomMargin + heightUsed;int size = Math.max(0, specSize - padding);</p>
 <p>由于id/linear 的 android:layout_marginTop=”50dp” 使得lp.topMargin=200px (本设备的density=4，px=4*pd)，在计算后id/linear的heightMeasureSpec 的size 少了200px。（布局代码前面已给出，可自行查看id/linear 控件xml中设置的属性）</p>
-</blockquote>
 <p>linear.measure接着往下算linear的子View的的MeasureSpec，看下View层级图，往下走应该是id/text,接下来是计算id/text的MeasureSpec，直接看图，mode=AT_MOST ,size 少了280，别问我为什么 …specSize - padding.</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/966283-058c5a6ce57b3125.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图 1."></p>
 <p>算出id/text 的MeasureSpec 后，接下来text.measure(childWidthMeasureSpec, childHeightMeasureSpec);准备测量id/text 的高宽，这时候已经到底了，id/text是TextView，已经没有子类了，这时候跳到TextView的onMeasure方法了。TextView 拿着刚才计算出来的heightMeasureSpec（mode=AT_MOST,size=1980）,这个就是对TextView的高度和宽度的约束，进到TextView 的onMeasure(widthMeasureSpec,heightMeasureSpec) 方法，在onMeasure 方法执行调试过程中，我们发现下面的代码：</p>
@@ -389,7 +379,7 @@ AT_MOST：子容器可以是声明大小内的任意大小
 
 
     <hr />
-    <h3>Comments:</h3>
+    <h3>Kommentare:</h3>
     <div id="fb-root"></div>
     <script>
         (function(d, s, id) {
