@@ -228,7 +228,8 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>View的绘制和事件处理是两个重要的主题，上一篇《图解 Android事件分发机制》已经把事件的分发机制讲得比较详细了，这一篇是针对View的绘制，View的绘制如果你有所了解，基本分为measure、layout、draw 过程，其中比较难理解就是measure过程，所以本篇文章大幅笔地分析measure过程，相对讲得比较详细，文章也比较长，如果你对View的绘制还不是很懂，对measure过程掌握得不是很深刻，那么耐心点，看完这篇文章，相信你会有所收获的。</p>
 <pre><code>【转载请明显注明出处，尊重劳动成果】
-</code></pre><h1 id="Measure过程"><a href="#Measure过程" class="headerlink" title="Measure过程"></a>Measure过程</h1><p>对于测量我们来说几个知识点,了解这几个知识点，之后的实例分析你才看得懂。</p>
+</code></pre><p>原文链接：<a href="http://www.jianshu.com/p/5a71014e7b1b" target="_blank" rel="external">http://www.jianshu.com/p/5a71014e7b1b</a></p>
+<h1 id="Measure过程"><a href="#Measure过程" class="headerlink" title="Measure过程"></a>Measure过程</h1><p>对于测量我们来说几个知识点,了解这几个知识点，之后的实例分析你才看得懂。</p>
 <h3 id="1、MeasureSpec-的理解"><a href="#1、MeasureSpec-的理解" class="headerlink" title="1、MeasureSpec 的理解"></a>1、MeasureSpec 的理解</h3><p>对于View的测量，肯定会和MeasureSpec接触，MeasureSpec是两个单词组成，翻译过来“测量规格”或者“测量参数”，很多博客包括官方文档对他的说明基本都是“一个MeasureSpec封装了从父容器传递给子容器的布局要求”,这个MeasureSpec 封装的是父容器传递给子容器的布局要求，而不是父容器对子容器的布局要求，“传递” 两个字很重要，更精确的说法应该这个MeasureSpec是由父View的MeasureSpec和子View的LayoutParams通过简单的计算得出一个针对子View的测量要求，这个测量要求就是MeasureSpec。</p>
 <ul>
 <li>大家都知道一个MeasureSpec是一个大小跟模式的组合值,MeasureSpec中的值是一个整型（32位）将size和mode打包成一个Int型，其中高两位是mode，后面30位存的是size，是为了减少对象的分配开支。MeasureSpec 类似于下图，只不过这边用的是十进制的数，而MeasureSpec 是二进制存储的。</li>
