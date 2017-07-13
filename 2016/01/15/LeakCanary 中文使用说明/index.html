@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="在思域车上等到天亮">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="小先先">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="LeakCanary 中文使用说明"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="在思域车上等到天亮" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Android解忧杂货店"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>LeakCanary 中文使用说明 - Android解忧杂货店</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-102249366-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="http://ww1.sinaimg.cn/large/006rIajegy1fhczf44dbwj30zk0jz43t.jpg">
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">庞小先之家</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/About">
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/pangrongxian">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://ww1.sinaimg.cn/large/006rIajegy1fhczbefq02j31hc0u0hdt.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>LeakCanary 中文使用说明</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by pangrongxian on
+                        
+                        
+                            2016-01-15
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/Android/">#Android</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Android/">Android</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="LeakCanary"><a href="#LeakCanary" class="headerlink" title="LeakCanary"></a>LeakCanary</h2><h3 id="Android-和-Java-内存泄露检测。"><a href="#Android-和-Java-内存泄露检测。" class="headerlink" title="Android 和 Java 内存泄露检测。"></a>Android 和 Java 内存泄露检测。</h3><blockquote>
+<p>原文：<a href="https://www.liaohuqiu.net/cn/posts/leak-canary-read-me/" target="_blank" rel="external">https://www.liaohuqiu.net/cn/posts/leak-canary-read-me/</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">“A small leak will sink a great ship.” - Benjamin Franklin</div><div class="line"></div><div class="line">千里之堤， 毁于蚁穴。 -- 《韩非子·喻老》</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/liaohuqiu/leakcanary/master/assets/screenshot.png" alt=""></p>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><p>一个非常简单的 LeakCanary demo: <a href="https://github.com/liaohuqiu/leakcanary-demo">https://github.com/liaohuqiu/leakcanary-demo</a></p>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><h3 id="在-build-gradle-中加入引用，不同的编译使用不同的引用："><a href="#在-build-gradle-中加入引用，不同的编译使用不同的引用：" class="headerlink" title="在 build.gradle 中加入引用，不同的编译使用不同的引用："></a>在 build.gradle 中加入引用，不同的编译使用不同的引用：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">   debugCompile &apos;com.squareup.leakcanary:leakcanary-android:1.5.1&apos;</div><div class="line">   releaseCompile &apos;com.squareup.leakcanary:leakcanary-android-no-op:1.5.1&apos;</div><div class="line">   testCompile &apos;com.squareup.leakcanary:leakcanary-android-no-op:1.5.1&apos;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h3 id="在-Application-中："><a href="#在-Application-中：" class="headerlink" title="在 Application 中："></a>在 Application 中：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class ExampleApplication extends Application &#123;</div><div class="line"></div><div class="line">  @Override public void onCreate() &#123;</div><div class="line">    super.onCreate();</div><div class="line">    if (LeakCanary.isInAnalyzerProcess(this)) &#123;</div><div class="line">      // This process is dedicated to LeakCanary for heap analysis.</div><div class="line">      // You should not init your app in this process.</div><div class="line">      return;</div><div class="line">    &#125;</div><div class="line">    LeakCanary.install(this);</div><div class="line">    // Normal app init code...</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>这样，就万事俱备了！</strong> 在 debug build 中，如果检测到某个 activity 有内存泄露，LeakCanary 就是自动地显示一个通知。</p>
+<h1 id="为什么需要使用-LeakCanary？"><a href="#为什么需要使用-LeakCanary？" class="headerlink" title="为什么需要使用 LeakCanary？"></a>为什么需要使用 LeakCanary？</h1><h3 id="问得好，看这个文章-LeakCanary-让内存泄露无所遁形"><a href="#问得好，看这个文章-LeakCanary-让内存泄露无所遁形" class="headerlink" title="问得好，看这个文章 LeakCanary: 让内存泄露无所遁形"></a>问得好，看这个文章 <a href="">LeakCanary: 让内存泄露无所遁形</a></h3><h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>使用 RefWatcher 监控那些本该被回收的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">RefWatcher refWatcher = &#123;...&#125;;</div><div class="line"></div><div class="line">// 监控</div><div class="line">refWatcher.watch(schrodingerCat);</div></pre></td></tr></table></figure>
+<p><strong>LeakCanary.install()</strong> 会返回一个预定义的 <strong>RefWatcher</strong>，同时也会启用一个 <strong>ActivityRefWatcher</strong>，用于自动监控调用 Activity.onDestroy() 之后泄露的 activity。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class ExampleApplication extends Application &#123;</div><div class="line"></div><div class="line">  public static RefWatcher getRefWatcher(Context context) &#123;</div><div class="line">    ExampleApplication application = (ExampleApplication) context.getApplicationContext();</div><div class="line">    return application.refWatcher;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  private RefWatcher refWatcher;</div><div class="line"></div><div class="line">  @Override public void onCreate() &#123;</div><div class="line">    super.onCreate();</div><div class="line">    refWatcher = LeakCanary.install(this);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">使用 **RefWatcher** 监控 **Fragment**：</div><div class="line"></div><div class="line">public abstract class BaseFragment extends Fragment &#123;</div><div class="line"></div><div class="line">  @Override public void onDestroy() &#123;</div><div class="line">    super.onDestroy();</div><div class="line">    RefWatcher refWatcher = ExampleApplication.getRefWatcher(getActivity());</div><div class="line">    refWatcher.watch(this);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="工作机制"><a href="#工作机制" class="headerlink" title="工作机制"></a>工作机制</h2><ol>
+<li><p>RefWatcher.watch() 创建一个 KeyedWeakReference 到要被监控的对象。</p>
+</li>
+<li><p>然后在后台线程检查引用是否被清除，如果没有，调用GC。</p>
+</li>
+<li><p>如果引用还是未被清除，把 heap 内存 dump 到 APP 对应的文件系统中的一个 .hprof 文件中。</p>
+</li>
+<li><p>在另外一个进程中的 HeapAnalyzerService 有一个 HeapAnalyzer 使用HAHA 解析这个文件。</p>
+</li>
+<li><p>得益于唯一的 reference key, HeapAnalyzer 找到 KeyedWeakReference，定位内存泄露。</p>
+</li>
+<li><p>HeapAnalyzer 计算 到 GC roots 的最短强引用路径，并确定是否是泄露。如果是的话，建立导致泄露的引用链。</p>
+</li>
+<li><p>引用链传递到 APP 进程中的 DisplayLeakService， 并以通知的形式展示出来。</p>
+</li>
+</ol>
+<h2 id="如何复制-leak-trace？"><a href="#如何复制-leak-trace？" class="headerlink" title="如何复制 leak trace？"></a>如何复制 leak trace？</h2><p>在 Logcat 中，你可以看到类似这样的 leak trace：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">In com.example.leakcanary:1.0:1 com.example.leakcanary.MainActivity has leaked:</div><div class="line"></div><div class="line">* GC ROOT thread java.lang.Thread.&lt;Java Local&gt; (named &apos;AsyncTask #1&apos;)</div><div class="line">* references com.example.leakcanary.MainActivity$3.this$0 (anonymous class extends android.os.AsyncTask)</div><div class="line">* leaks com.example.leakcanary.MainActivity instance</div><div class="line"></div><div class="line">* Reference Key: e71f3bf5-d786-4145-8539-584afaecad1d</div><div class="line">* Device: Genymotion generic Google Nexus 6 - 5.1.0 - API 22 - 1440x2560 vbox86p</div><div class="line">* Android Version: 5.1 API: 22</div><div class="line">* Durations: watch=5086ms, gc=110ms, heap dump=435ms, analysis=2086ms</div></pre></td></tr></table></figure>
+<p>你甚至可以通过分享按钮把这些东西分享出去。</p>
+<h2 id="SDK-导致的内存泄露"><a href="#SDK-导致的内存泄露" class="headerlink" title="SDK 导致的内存泄露"></a>SDK 导致的内存泄露</h2><p>随着时间的推移，很多SDK 和厂商 ROM 中的内存泄露问题已经被尽快修复了。但是，当这样的问题发生时，一般的开发者能做的事情很有限。</p>
+<p>LeakCanary 有一个已知问题的忽略列表，AndroidExcludedRefs.java，如果你发现了一个新的问题，请提一个 issue 并附上 leak trace, reference key, 机器型号和 SDK 版本。如果可以附带上 dump 文件的 链接那就再好不过了。</p>
+<p>对于最新发布的 Android，这点尤其重要。你有机会在帮助在早期发现新的内存泄露，这对整个 Android 社区都有极大的益处。</p>
+<p>开发版本的 Snapshots 包在这里： Sonatype’s snapshots repository。</p>
+<h2 id="leak-trace-之外"><a href="#leak-trace-之外" class="headerlink" title="leak trace 之外"></a>leak trace 之外</h2><p>有时，leak trace 不够，你需要通过 MAT 或者 YourKit 深挖 dump 文件。</p>
+<p>通过以下方法，你能找到问题所在：</p>
+<ol>
+<li>查找所有的 com.squareup.leakcanary.KeyedWeakReference 实例。</li>
+<li>检查 key 字段</li>
+<li>Find the KeyedWeakReference that has a key field equal to the reference key<br>reported by LeakCanary.</li>
+<li>找到 key 和 和 logcat 输出的 key 值一样的 KeyedWeakReference。</li>
+<li>referent 字段对应的就是泄露的对象。</li>
+<li>剩下的，就是动手修复了。最好是检查到 GC root 的最短强引用路径开始。</li>
+</ol>
+<h2 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h2><h3 id="UI-样式"><a href="#UI-样式" class="headerlink" title="UI 样式"></a>UI 样式</h3><p>DisplayLeakActivity 有一个默认的图标和标签，你只要在你自己的 APP 资源中，替换以下资源就可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">res/</div><div class="line">  drawable-hdpi/</div><div class="line">    __leak_canary_icon.png</div><div class="line">  drawable-mdpi/</div><div class="line">    __leak_canary_icon.png</div><div class="line">  drawable-xhdpi/</div><div class="line">    __leak_canary_icon.png</div><div class="line">  drawable-xxhdpi/</div><div class="line">    __leak_canary_icon.png</div><div class="line">  drawable-xxxhdpi/</div><div class="line">    __leak_canary_icon.png</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;resources&gt;</div><div class="line">  &lt;string name=&quot;__leak_canary_display_activity_label&quot;&gt;MyLeaks&lt;/string&gt;</div><div class="line">&lt;/resources&gt;</div></pre></td></tr></table></figure>
+<h3 id="保存-leak-trace"><a href="#保存-leak-trace" class="headerlink" title="保存 leak trace"></a>保存 leak trace</h3><p>DisplayLeakActivity saves up to 7 heap dumps &amp; leak traces in the app directory. You can change that number by providing R.integer.__leak_canary_max_stored_leaks in your app:</p>
+<p>在 APP 的目录中，DisplayLeakActivity 保存了 7 个 dump 文件和 leak trace。你可以在你的 APP 中，定义 R.integer.__leak_canary_max_stored_leaks 来覆盖类库的默认值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;resources&gt;</div><div class="line">  &lt;integer name=&quot;__leak_canary_max_stored_leaks&quot;&gt;20&lt;/integer&gt;</div><div class="line">&lt;/resources&gt;</div></pre></td></tr></table></figure>
+<h2 id="上传-leak-trace-到服务器"><a href="#上传-leak-trace-到服务器" class="headerlink" title="上传 leak trace 到服务器"></a>上传 leak trace 到服务器</h2><p>你可以改变处理完成的默认行为，将 leak trace 和 heap dump 上传到你的服务器以便统计分析。</p>
+<p>创建一个 LeakUploadService， 最简单的就是继承 DisplayLeakService ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public class LeakUploadService extends DisplayLeakService &#123;</div><div class="line">  @Override</div><div class="line">  protected void afterDefaultHandling(HeapDump heapDump, AnalysisResult result, String leakInfo) &#123;</div><div class="line">    if (!result.leakFound || result.excludedLeak) &#123;</div><div class="line">      return;</div><div class="line">    &#125;</div><div class="line">    myServer.uploadLeakBlocking(heapDump.heapDumpFile, leakInfo);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>请确认 release 版本 使用 RefWatcher.DISABLED：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class ExampleApplication extends Application &#123;</div><div class="line"></div><div class="line">  public static RefWatcher getRefWatcher(Context context) &#123;</div><div class="line">    ExampleApplication application = (ExampleApplication) context.getApplicationContext();</div><div class="line">    return application.refWatcher;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  private RefWatcher refWatcher;</div><div class="line"></div><div class="line">  @Override public void onCreate() &#123;</div><div class="line">    super.onCreate();</div><div class="line">    refWatcher = installLeakCanary();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  protected RefWatcher installLeakCanary() &#123;</div><div class="line">    return RefWatcher.DISABLED;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>自定义 RefWatcher：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public class DebugExampleApplication extends ExampleApplication &#123;</div><div class="line">  protected RefWatcher installLeakCanary() &#123;</div><div class="line">    return LeakCanary.install(app, LeakUploadService.class);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>别忘了注册 service：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</div><div class="line">    &gt;</div><div class="line">  &lt;application android:name=&quot;com.example.DebugExampleApplication&quot;&gt;</div><div class="line">    &lt;service android:name=&quot;com.example.LeakUploadService&quot; /&gt;</div><div class="line">  &lt;/application&gt;</div><div class="line">&lt;/manifest&gt;</div></pre></td></tr></table></figure>
+
+
+                
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5960f67cd59f733f"></script>
+
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                    <div class="addthis_sharing_toolbox"></div>
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+    <hr />
+    <h3>Kommentare:</h3>
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1346486892138010";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <div class="fb-comments" data-href="https://github.com/pangrongxian/2016/01/15/LeakCanary 中文使用说明/index.html" data-num-posts="5" data-width="100%" data-colorscheme="light"></div>
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+                        <li>
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/pangrongxian" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+
+
+
+
+                <p class="copyright text-muted">&copy; 2017 小先先<br></p>
+
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+
+                <p class="copyright text-muted">
+
+                    <span id="busuanzi_container_page_pv">Reading <span id="busuanzi_value_page_pv">
+                    </span> Times</span>
+
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

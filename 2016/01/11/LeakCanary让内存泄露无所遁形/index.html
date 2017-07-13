@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="在思域车上等到天亮">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="小先先">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="LeakCanary让内存泄露无所遁形"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="在思域车上等到天亮" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Android解忧杂货店"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>LeakCanary让内存泄露无所遁形 - Android解忧杂货店</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-102249366-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="http://ww1.sinaimg.cn/large/006rIajegy1fhczf44dbwj30zk0jz43t.jpg">
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">庞小先之家</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/About">
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/pangrongxian">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://ww1.sinaimg.cn/large/006rIajegy1fhczbefq02j31hc0u0hdt.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>LeakCanary让内存泄露无所遁形</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by pangrongxian on
+                        
+                        
+                            2016-01-11
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/Android/">#Android</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Android/">Android</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <pre><code>本文为 LeakCanary: Detect all memory leaks 的翻译。
+
+原文: https://corner.squareup.com/2015/05/leak-canary.html
+
+翻译出处：https://www.liaohuqiu.net/cn/posts/leak-canary/
+</code></pre><h2 id="LeakCanary-Detect-all-memory-leaks"><a href="#LeakCanary-Detect-all-memory-leaks" class="headerlink" title="LeakCanary: Detect all memory leaks!"></a>LeakCanary: Detect all memory leaks!</h2><h3 id="A-memory-leak-detection-library-for-Android-and-Java"><a href="#A-memory-leak-detection-library-for-Android-and-Java" class="headerlink" title="A memory leak detection library for Android and Java."></a>A memory leak detection library for Android and Java.</h3><p><em>Written by <a href="https://twitter.com/Piwai" target="_blank" rel="external">Pierre-Yves Ricau.</a></em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">java.lang.OutOfMemoryError</div><div class="line">        at android.graphics.Bitmap.nativeCreate(Bitmap.java:-2)</div><div class="line">        at android.graphics.Bitmap.createBitmap(Bitmap.java:689)</div><div class="line">        at com.squareup.ui.SignView.createSignatureBitmap(SignView.java:121)</div></pre></td></tr></table></figure>
+<h2 id="谁也不会喜欢-OutOfMemoryError"><a href="#谁也不会喜欢-OutOfMemoryError" class="headerlink" title="谁也不会喜欢 OutOfMemoryError"></a>谁也不会喜欢 OutOfMemoryError</h2><h3 id="在-Square-Register-中-在签名页面，我们把客户的签名画在-bitmap-cache-上。-这个-bitmap-的尺寸几乎和屏幕的尺寸一样大，在创建这个-bitmap-对象时，经常会引发-OutOfMemoryError，简称OOM。"><a href="#在-Square-Register-中-在签名页面，我们把客户的签名画在-bitmap-cache-上。-这个-bitmap-的尺寸几乎和屏幕的尺寸一样大，在创建这个-bitmap-对象时，经常会引发-OutOfMemoryError，简称OOM。" class="headerlink" title="在 Square Register 中, 在签名页面，我们把客户的签名画在 bitmap cache 上。 这个 bitmap 的尺寸几乎和屏幕的尺寸一样大，在创建这个 bitmap 对象时，经常会引发 OutOfMemoryError，简称OOM。"></a>在 <a href="https://squareup.com/help/global/en/article/5243-download-the-square-register-app" target="_blank" rel="external">Square Register</a> 中, 在签名页面，<a href="https://medium.com/square-corner-blog/smooth-signatures-9d92df119ff8" target="_blank" rel="external">我们把客户的签名画在 bitmap cache 上</a>。 这个 bitmap 的尺寸几乎和屏幕的尺寸一样大，在创建这个 bitmap 对象时，经常会引发 OutOfMemoryError，简称OOM。</h3><p><img src="https://cdn-images-1.medium.com/max/1600/0*TpsPt3DHu_aMeoa2.png" alt=""></p>
+<h3 id="当时，我们尝试过一些解决方案，但都没解决问题"><a href="#当时，我们尝试过一些解决方案，但都没解决问题" class="headerlink" title="当时，我们尝试过一些解决方案，但都没解决问题"></a>当时，我们尝试过一些解决方案，但都没解决问题</h3><ul>
+<li><p>使用 Bitmap.Config.ALPHA_8 因为，签名仅有黑色。</p>
+</li>
+<li><p>捕捉 OutOfMemoryError, 尝试 GC 并重试（受 <a href="https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/ics-mr1/java/src/com/android/inputmethod/latin/Utils.java" target="_blank" rel="external">GCUtils</a> 启发）。</p>
+</li>
+<li><p>我们没想过在 Java heap 内存之外创建 bitmap 。苦逼的我们，那会 Fresco 还不存在。</p>
+</li>
+</ul>
+<h2 id="路子走错了"><a href="#路子走错了" class="headerlink" title="路子走错了"></a>路子走错了</h2><p>其实 bitmap 的尺寸不是真正的问题，当内存吃紧的时候，到处都有可能引发 OO。在创建大对象，比如 bitmap 的时候，更有可能发生。OOM 只是一个表象，更深层次的问题可能是: <strong>内存泄露</strong>。</p>
+<h2 id="什么是内存泄露"><a href="#什么是内存泄露" class="headerlink" title="什么是内存泄露"></a>什么是内存泄露</h2><p>一些对象有着有限的生命周期。当这些对象所要做的事情完成了，我们希望他们会被回收掉。但是如果有一系列对这个对象的引用，那么在我们期待这个对象生命周期结束的时候被收回的时候，它是不会被回收的。它还会占用内存，这就造成了内存泄露。持续累加，内存很快被耗尽。</p>
+<p>比如，当 Activity.onDestroy 被调用之后，activity 以及它涉及到的 view 和相关的 bitmap 都应该被回收。但是，如果有一个后台线程持有这个 activity 的引用，那么 activity 对应的内存就不能被回收。这最终将会导致内存耗尽，然后因为 OOM 而 crash。</p>
+<h2 id="对战内存泄露"><a href="#对战内存泄露" class="headerlink" title="对战内存泄露"></a>对战内存泄露</h2><p>排查内存泄露是一个全手工的过程，这在 Raizlabs 的 Wrangling Dalvik 系列文章中有详细描述。</p>
+<p>以下几个关键步骤：</p>
+<ol>
+<li><p>通过 Bugsnag, Crashlytics 或者 Developer Console 等统计平台，了解 OutOfMemoryError 情况。</p>
+</li>
+<li><p>重现问题。为了重现问题，机型非常重要，因为一些问题只在特定的设备上会出现。为了找到特定的机型，你需要想尽一切办法，你可能需要去买，去借，甚至去偷。 当然，为了确定复现步骤，你需要一遍一遍地去尝试。一切都是非常原始和粗暴的。</p>
+</li>
+<li><p>在发生内存泄露的时候，把内存 Dump 出来。具体看这里。</p>
+</li>
+<li><p>然后，你需要在 MAT 或者 YourKit 之类的内存分析工具中反复查看，找到那些原本该被回收掉的对象。</p>
+</li>
+<li><p>计算这个对象到 GC roots 的最短强引用路径。</p>
+</li>
+<li><p>确定引用路径中的哪个引用是不该有的，然后修复问题。</p>
+</li>
+</ol>
+<p>很复杂对吧？</p>
+<p>如果有一个类库能在发生 OOM 之前把这些事情全部都搞定，然后你只要修复这些问题就好了，岂不妙哉！</p>
+<h2 id="LeakCanary"><a href="#LeakCanary" class="headerlink" title="LeakCanary"></a>LeakCanary</h2><h3 id="LeakCanary-是一个检测内存泄露的开源类库。你可以在-debug-包种轻松检测内存泄露。"><a href="#LeakCanary-是一个检测内存泄露的开源类库。你可以在-debug-包种轻松检测内存泄露。" class="headerlink" title="LeakCanary 是一个检测内存泄露的开源类库。你可以在 debug 包种轻松检测内存泄露。"></a><a href="https://github.com/square/leakcanary">LeakCanary</a> 是一个检测内存泄露的开源类库。你可以在 debug 包种轻松检测内存泄露。</h3><h3 id="先看一个例子"><a href="#先看一个例子" class="headerlink" title="先看一个例子:"></a>先看一个例子:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">class Cat &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Box &#123;</div><div class="line">  Cat hiddenCat;</div><div class="line">&#125;</div><div class="line">class Docker &#123;</div><div class="line">    // 静态变量，将不会被回收，除非加载 Docker 类的 ClassLoader 被回收。</div><div class="line">    static Box container;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// ...</div><div class="line"></div><div class="line">Box box = new Box();</div><div class="line"></div><div class="line">// 薛定谔之猫</div><div class="line">Cat schrodingerCat = new Cat();</div><div class="line">box.hiddenCat = schrodingerCat;</div><div class="line">Docker.container = box;</div></pre></td></tr></table></figure>
+<h3 id="创建一个-RefWatcher-，监控对象引用情况。"><a href="#创建一个-RefWatcher-，监控对象引用情况。" class="headerlink" title="创建一个 RefWatcher ，监控对象引用情况。"></a>创建一个 <strong>RefWatcher</strong> ，监控对象引用情况。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 我们期待薛定谔之猫很快就会消失（或者不消失），我们监控一下</div><div class="line">refWatcher.watch(schrodingerCat);</div></pre></td></tr></table></figure>
+<h3 id="当发现有内存泄露的时候，你会看到一个很漂亮的-leak-trace-报告"><a href="#当发现有内存泄露的时候，你会看到一个很漂亮的-leak-trace-报告" class="headerlink" title="当发现有内存泄露的时候，你会看到一个很漂亮的 leak trace 报告:"></a>当发现有内存泄露的时候，你会看到一个很漂亮的 leak trace 报告:</h3><ul>
+<li>GC ROOT static Docker.container</li>
+<li>references Box.hiddenCat</li>
+<li>leaks Cat instance</li>
+</ul>
+<h3 id="我们知道，你很忙，每天都有一大堆需求。所以我们把这个事情弄得很简单，你只需要添加一行代码就行了。然后-LeakCanary-就会自动侦测-activity-的内存泄露了。"><a href="#我们知道，你很忙，每天都有一大堆需求。所以我们把这个事情弄得很简单，你只需要添加一行代码就行了。然后-LeakCanary-就会自动侦测-activity-的内存泄露了。" class="headerlink" title="我们知道，你很忙，每天都有一大堆需求。所以我们把这个事情弄得很简单，你只需要添加一行代码就行了。然后 LeakCanary 就会自动侦测 activity 的内存泄露了。"></a>我们知道，你很忙，每天都有一大堆需求。所以我们把这个事情弄得很简单，你只需要添加一行代码就行了。然后 LeakCanary 就会自动侦测 activity 的内存泄露了。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class ExampleApplication extends Application &#123;</div><div class="line">  @Override public void onCreate() &#123;</div><div class="line">    super.onCreate();</div><div class="line">    LeakCanary.install(this);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后你会在通知栏看到这样很漂亮的一个界面:</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>使用 LeakCanary 之后，我们修复了我们 APP 中相当多的内存泄露。我们甚至发现了 Android SDK 中的一些内存泄露问题。</p>
+<p>结果是惊艳的，我们减少了 94% 的由 OOM 导致的 crash。</p>
+<p>如果你也想消灭 OOM crash，那还犹豫什么，赶快使用 <a href="https://cdn-images-1.medium.com/max/1600/0*8DpD5hZX4R4O4Vvr.png" target="_blank" rel="external">LeakCanary</a></p>
+<p>相关链接:</p>
+<ul>
+<li><p><a href="">LeakCanary 中文使用说明</a></p>
+</li>
+<li><p>一个非常简单的 LeakCanary demo: <a href="https://github.com/liaohuqiu/leakcanary-demo">https://github.com/liaohuqiu/leakcanary-demo</a></p>
+</li>
+</ul>
+
+
+                
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5960f67cd59f733f"></script>
+
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                    <div class="addthis_sharing_toolbox"></div>
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+    <hr />
+    <h3>Kommentare:</h3>
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1346486892138010";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <div class="fb-comments" data-href="https://github.com/pangrongxian/2016/01/11/LeakCanary让内存泄露无所遁形/index.html" data-num-posts="5" data-width="100%" data-colorscheme="light"></div>
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+                        <li>
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/pangrongxian" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+
+
+
+
+                <p class="copyright text-muted">&copy; 2017 小先先<br></p>
+
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+
+                <p class="copyright text-muted">
+
+                    <span id="busuanzi_container_page_pv">Reading <span id="busuanzi_value_page_pv">
+                    </span> Times</span>
+
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
