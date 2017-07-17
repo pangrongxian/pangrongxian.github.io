@@ -105,9 +105,8 @@
 </li>
 <li><p><a href="http://blog.csdn.net/column/details/android-database-pro.html" target="_blank" rel="external">Android数据库高手秘籍 - 郭霖</a></p>
 </li>
-</ul>
-<p><a href="http://www.jianshu.com/p/5449656d56d2" target="_blank" rel="external">GreenDao3.0入门</a></p>
-<ul>
+<li><p><a href="http://www.jianshu.com/p/5449656d56d2" target="_blank" rel="external">GreenDao3.0入门</a></p>
+</li>
 <li><p><a href="https://juejin.im/post/5959b5bcf265da6c4d1bb245" target="_blank" rel="external">Android ORM 框架：GreenDao 使用详解（基础篇）</a></p>
 </li>
 <li><p><a href="http://www.jianshu.com/p/28912c2f31db" target="_blank" rel="external">Realm for Android详细教程</a></p>
@@ -228,12 +227,10 @@
 <li><p><a href="http://www.jianshu.com/p/e6ad4423efcd" target="_blank" rel="external">8大排序算法图文讲解</a></p>
 </li>
 <li><p><a href="http://www.cnblogs.com/liuling/p/2013-7-24-01.html" target="_blank" rel="external">各种排序算法的分析及java实现</a></p>
+<p>  热门流行库 ： RxJava 、 RxAndroid 、 Retrofit 、 Dagger2 、Realm  </p>
+<p>  React Native 开发</p>
 </li>
 </ul>
-<blockquote>
-<p>热门流行库 ： RxJava 、 RxAndroid 、 Retrofit 、 Dagger2 、Realm  </p>
-<p>React Native 开发</p>
-</blockquote>
 <h3 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h3><ul>
 <li><a href="http://dev.qq.com/topic/577e16a7640ad7b4682c64a7" target="_blank" rel="external">React Native 项目实战总结</a></li>
 </ul>
