@@ -1285,7 +1285,10 @@ AT_MOST：子容器可以是声明大小内的任意大小
     <entry>
       <title><![CDATA[Service 简介 - 翻译【官方文档】]]></title>
       <url>https://github.com/pangrongxian/2015/12/20/Service%20%E7%AE%80%E4%BB%8B%20-%20%E7%BF%BB%E8%AF%91%E3%80%90%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E3%80%91/</url>
-      <content type="html"><![CDATA[<h2 id="Service-简介"><a href="#Service-简介" class="headerlink" title="Service 简介"></a>Service 简介</h2><p>A Service is an application component that can perform long-running<br>operations in the background and does not provide a user interface. </p>
+      <content type="html"><![CDATA[<h2 id="Service-简介"><a href="#Service-简介" class="headerlink" title="Service 简介"></a>Service 简介</h2><p>这个博客是大学时候写的，当时啥都不懂。官方文档还是英文的。</p>
+<p>现在Android官方文档都有汉语版了。时过境迁啊！</p>
+<p><a href="https://developer.android.com/guide/components/services.html" target="_blank" rel="external">官方 Service 介绍</a></p>
+<p>A Service is an application component that can perform long-running<br>operations in the background and does not provide a user interface. </p>
 <p>服务是一个能够在后台执行长时间操作的应用程序组件，但不提供用户界面。</p>
 <hr>
 <p>Another application component can start a service and it will continue to run in the background even if the user switches to another application. </p>
@@ -1349,7 +1352,7 @@ AT_MOST：子容器可以是声明大小内的任意大小
 <p>在你的这个方法的实现中，你必须提供一个客户端用来和服务交流的接口，通过返回一个IBinder对象。</p>
 <hr>
 <p>You must always implement this method, but if you don’t want to allow binding, then you should return null.</p>
-<p>你必须总是实现这个方法，但如果你不想要让绑定，你应该返回空。</p>
+<p>你必须总是实现这个方法，但如果你不想要被绑定，你应该返回空。</p>
 <hr>
 <h4 id="onCreate"><a href="#onCreate" class="headerlink" title="onCreate()"></a>onCreate()</h4><p>The system calls this method when the service is first created, to perform one-time setup procedures (before it calls either onStartCommand() or onBind()). If the service is already running, this method is not called.</p>
 <p>当服务第一次启动，系统会调用该方法，去执行一次设置程序（在系统调用onStartCommand（）或onBind（）两者之一的方法之前）。如果服务已经运行，则该方法不会被调用。</p>
@@ -1373,7 +1376,7 @@ AT_MOST：子容器可以是声明大小内的任意大小
 <p>另外，如果服务被启动后长时间运行，随着时间的推移，系统将会降低它在后台任务列表中的位置，然后这个服务将会变得高度敏感随时会被杀死。如果你的服务被启动，你必须设计通过系统优雅地处理重新启动它。</p>
 <hr>
 <p>If the system kills your service, it restarts it as soon as resources become available again (though this also depends on the value you return from onStartCommand().</p>
-<p>如果系统杀死了你的服务，一旦资源变得再次可用它将重新启动（虽然这也取决于你从onStartCommand()得到的返回结果的价值）。</p>
+<p>如果系统杀死了你的服务，一旦资源变得再次可用它将重新启动（虽然这也取决于你从onStartCommand()得到的返回值）。</p>
 ]]></content>
     </entry>
     
