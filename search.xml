@@ -1283,6 +1283,101 @@ AT_MOST：子容器可以是声明大小内的任意大小
     </entry>
     
     <entry>
+      <title><![CDATA[Service 简介 - 翻译【官方文档】]]></title>
+      <url>https://github.com/pangrongxian/2015/12/20/Service%20%E7%AE%80%E4%BB%8B%20-%20%E7%BF%BB%E8%AF%91%E3%80%90%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E3%80%91/</url>
+      <content type="html"><![CDATA[<h2 id="Service-简介"><a href="#Service-简介" class="headerlink" title="Service 简介"></a>Service 简介</h2><p>A Service is an application component that can perform long-running<br>operations in the background and does not provide a user interface. </p>
+<p>服务是一个能够在后台执行长时间操作的应用程序组件，但不提供用户界面。</p>
+<hr>
+<p>Another application component can start a service and it will continue to run in the background even if the user switches to another application. </p>
+<p>另一个应用程序组件能够启动一个服务，它将继续在后台运行，即使用户切换到另一个应用程序。</p>
+<hr>
+<p>Additionally, a component can bind to a service to interact with it and even perform interprocess communication (IPC). </p>
+<p>此外，一个组件可以绑定到一个服务，并且与其互动，甚至执行进程间通信（IPC）。</p>
+<hr>
+<p>For example, a service might handle network transactions, play music, perform file I/O, or interact with a content provider, all from the background.</p>
+<p>例如，一个服务可以处理网络任务、播放音乐、执行文件I/O流、或与内容提供者进行交互，所有的操作都在后台进行。</p>
+<hr>
+<h3 id="服务的两种启动方式"><a href="#服务的两种启动方式" class="headerlink" title="服务的两种启动方式"></a>服务的两种启动方式</h3><h4 id="第一种方式：Started-（被启动）"><a href="#第一种方式：Started-（被启动）" class="headerlink" title="第一种方式：Started （被启动）"></a>第一种方式：Started （被启动）</h4><p>A service is “started” when an application component (such as an activity) starts it by calling startService(). </p>
+<p>（当一个服务被一个应用程序组件（例如Activity）通过调用startService（）方法来启动时，服务被启动）</p>
+<hr>
+<p>Once started, a service can run in the background indefinitely, even if the component that started it is destroyed. </p>
+<p>一旦被启动，一个服务能够无限制地在后台运行，即使启动它的应用程序组件被销毁了。</p>
+<hr>
+<p>Usually, a started service performs a single operation and does not return a result to the caller. </p>
+<p>通常，一个被启动的服务执行一个单一的操作而且不会返回结果给调用者。</p>
+<hr>
+<p>For example, it might download or upload a file over the network. When the operation is done, the service should stop itself.</p>
+<p>例如，服务可能在网络上下载或者上传一个文件，当操作结束，服务应该停止它自己。</p>
+<hr>
+<h4 id="第二种方式：Bound-（绑定）"><a href="#第二种方式：Bound-（绑定）" class="headerlink" title="第二种方式：Bound （绑定）"></a>第二种方式：Bound （绑定）</h4><p>A service is “bound” when an application component binds to it by calling bindService(). </p>
+<p>当一个应用程序组件通过调用 bindService（）方法去捆绑一个服务时，服务被绑定。</p>
+<hr>
+<p>A bound service offers a client-server interface that allows components to interact with the service, send requests, get results, and even do so across processes with interprocess communication (IPC). </p>
+<p>一个被绑定的服务提供一个客户端的服务器接口，允许组件与服务交互，发送请求，获取结果，甚至还可以跨越进程进行进程间通信（IPC）。</p>
+<hr>
+<p>A bound service runs only as long as another application component is bound to it. Multiple components can bind to the service at once, but when all of them unbind, the service is destroyed.</p>
+<p>只要另一个应用程序组件绑定到服务，服务就会运行。多个组件可以同时（一起）绑定这个服务，但当所有的组件解绑服务，这个服务会被销毁。</p>
+<hr>
+<p>Caution: A service runs in the main thread of its hosting process—the service does not create its own thread and does not run in a separate process (unless you specify otherwise). </p>
+<p>警告：服务运行在其托管进程的主线程中，服务不会创建它自己的线程，也不会在单独的进程中运行（除非你另有说明）。</p>
+<hr>
+<p>This means that, if your service is going to do any CPU intensive work or blocking operations (such as MP3 playback or networking), you should create a new thread within the service to do that work.</p>
+<p>这意味着，如果你的服务是要去做任何CPU密集型工作或阻塞操作（如MP3播放或网络访问），你应该在服务中创建一个新的线程去做那些工作。</p>
+<hr>
+<p>By using a separate thread, you will reduce the risk of Application Not Responding (ANR) errors and the application’s main thread can remain dedicated to user interaction with your activities.</p>
+<p>通过使用一个单独的线程，你会减少应用程序没有响应（ANR）错误的风险,而应用程序的主线程可以继续致力于用户和Activity（用户界面）的交互。</p>
+<hr>
+<p>To create a service, you must create a subclass of Service (or one of its existing subclasses). </p>
+<p>要创建一个服务，你必须创建一个服务的子类（或它的一个现有的子类）。</p>
+<hr>
+<p>In your implementation, you need to override some callback methods that handle key aspects of the service lifecycle and provide a mechanism for components to bind to the service, if appropriate.</p>
+<p>在执行中，您需要重写一些处理服务的生命周期关键方面的回调方法，并提供组件绑定到服务的途径，如果合适的话。<br>The most important callback methods you should override are:<br>你应该重写的最重要的回调方法有：（重点来啦！！！）</p>
+<hr>
+<h4 id="onStartCommand"><a href="#onStartCommand" class="headerlink" title="onStartCommand()"></a>onStartCommand()</h4><p>The system calls this method when another component, such as an activity, requests that the service be started, by calling startService(). </p>
+<p>当另一个组件（比如一个Activity）通过调用startService（）方法来启动服务的时候，，系统就会调用这个方法：onStartCommand()</p>
+<hr>
+<p>Once this method executes, the service is started and can run in the background indefinitely. If you implement this, it is your responsibility to stop the service when its work is done, by calling stopSelf() or stopService(). </p>
+<p>一旦该方法执行，该服务就会被启动并且可以无限期地在后台运行。如果你实现了这个方法，当服务的工作已经完成，你有责任通过调用stopself()或stopservice()方法停止它。</p>
+<hr>
+<p>(If you only want to provide binding, you don’t need to implement this method.)</p>
+<p>如果你只想提供绑定，就不需要实现这个方法。</p>
+<hr>
+<h4 id="onBind"><a href="#onBind" class="headerlink" title="onBind()"></a>onBind()</h4><p>The system calls this method when another component wants to bind with the service, by calling bindService().</p>
+<p>当另一个组件想要通过调用bindService（）方法和服务绑定的时候，系统会调用这个方法。</p>
+<hr>
+<p>In your implementation of this method, you must provide an interface that clients use to communicate with the service, by returning an IBinder. </p>
+<p>在你的这个方法的实现中，你必须提供一个客户端用来和服务交流的接口，通过返回一个IBinder对象。</p>
+<hr>
+<p>You must always implement this method, but if you don’t want to allow binding, then you should return null.</p>
+<p>你必须总是实现这个方法，但如果你不想要让绑定，你应该返回空。</p>
+<hr>
+<h4 id="onCreate"><a href="#onCreate" class="headerlink" title="onCreate()"></a>onCreate()</h4><p>The system calls this method when the service is first created, to perform one-time setup procedures (before it calls either onStartCommand() or onBind()). If the service is already running, this method is not called.</p>
+<p>当服务第一次启动，系统会调用该方法，去执行一次设置程序（在系统调用onStartCommand（）或onBind（）两者之一的方法之前）。如果服务已经运行，则该方法不会被调用。</p>
+<hr>
+<h4 id="onDestroy"><a href="#onDestroy" class="headerlink" title="onDestroy()"></a>onDestroy()</h4><p>The system calls this method when the service is no longer used and is being destroyed. Your service should implement this to clean up any resources such as threads, registered listeners, receivers, etc. This is the last call the service receives.</p>
+<p>当服务不再被使用并正在被销毁的时候，系统调用该方法。你的服务应该实现这个方法来清理像线程、注册的监听器和接收器等资源。这是服务接收的最后一次调用。</p>
+<hr>
+<p>If a component starts the service by calling startService() (which results in a call to onStartCommand()), then the service remains running until it stops itself with stopSelf() or another component stops it by calling stopService().</p>
+<p>如果一个组件是通过调用startService（）方法来启动服务（结果是去调用onStartCommand（）方法），然后这个服务继续运行直到它通过stopSelf（）方法来停止它自己或另一个组件通过调用stopService（）方法来停止它。</p>
+<hr>
+<p>If a component calls bindService() to create the service (and onStartCommand() is not called), then the service runs only as long as the component is bound to it. Once the service is unbound from all clients, the system destroys it.</p>
+<p>如果一个组件是通过调用bindService（）方法来创建一个服务（则onStartCommand（）方法不被调用），然后只要这个组件绑定到这个服务，它就会运行。一旦这个服务被所有的客户端解绑，系统就会销毁它。</p>
+<hr>
+<p>The Android system will force-stop a service only when memory is low and it must recover system resources for the activity that has user focus. </p>
+<p>只有当内存低和必须为具有用户焦点的Activity（用户界面）恢复系统资源的时候，Android系统将会强制停止服务。</p>
+<hr>
+<p>If the service is bound to an activity that has user focus, then it’s less likely to be killed, and if the service is declared to run in the foreground, then it will almost never be killed.</p>
+<p>如果服务是和一个具有用户焦点的Activity绑定的，那么它是很小的可能会被杀死的，如果服务被声明在前台运行，它几乎不会被杀死。</p>
+<hr>
+<p>Otherwise, if the service was started and is long-running, then the system will lower its position in the list of background tasks over time and the service will become highly susceptible to killing—if your service is started, then you must design it to gracefully handle restarts by the system. </p>
+<p>另外，如果服务被启动后长时间运行，随着时间的推移，系统将会降低它在后台任务列表中的位置，然后这个服务将会变得高度敏感随时会被杀死。如果你的服务被启动，你必须设计通过系统优雅地处理重新启动它。</p>
+<hr>
+<p>If the system kills your service, it restarts it as soon as resources become available again (though this also depends on the value you return from onStartCommand().</p>
+<p>如果系统杀死了你的服务，一旦资源变得再次可用它将重新启动（虽然这也取决于你从onStartCommand()得到的返回结果的价值）。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android Studio 插件大集结！]]></title>
       <url>https://github.com/pangrongxian/2015/08/12/Android%20Studio%20%E6%8F%92%E4%BB%B6%E5%A4%A7%E9%9B%86%E7%BB%93/</url>
       <content type="html"><![CDATA[<p>标注:本文在Windows环境下进行</p>
