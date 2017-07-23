@@ -232,9 +232,7 @@
 <li>Fragment 操作宿主 Activity，</li>
 <li>Fragment 操作同属 Activity中的其他 Fragment。</li>
 </ol>
-<p>由于 Activity 持有所有内嵌的 Fragment 对象实例。</p>
-<p>（创建实例时保存的 Fragment 对象，或者通过 FragmentManager 类提供的findFragmentById()和findFragmentByTag() 方法也能获取到 Fragment 对象），所以可以直接操作Fragment。</p>
-<p>Fragment 通过 getActivity() 方法可以获取到宿主 Activity 对象（强制转换类型即可），进而可以操作宿主 Activity；那么很自然的，获取到宿主 Activity 对象的 Fragment 便可以操作其他Fragment 对象。</p>
+<p>由于 Activity 持有所有内嵌的 Fragment 对象实例。（创建实例时保存的 Fragment 对象，或者通过 FragmentManager 类提供的findFragmentById()和findFragmentByTag() 方法也能获取到 Fragment 对象），所以可以直接操作Fragment。Fragment 通过 getActivity() 方法可以获取到宿主 Activity 对象（强制转换类型即可），进而可以操作宿主 Activity；那么很自然的，获取到宿主 Activity 对象的 Fragment 便可以操作其他Fragment 对象。</p>
 <p>虽然上述操作已经能够解决 Activity 与 Fragment 的通信问题，但会造成代码逻辑紊乱的结果，极度不符合这一编程思想：高内聚，低耦合。Fragment 做好自己的事情即可，所有涉及到 Fragment 之间的控制显示等操作，都应交由宿主 Activity 来统一管理。</p>
 <h3 id="（一）Handler-1"><a href="#（一）Handler-1" class="headerlink" title="（一）Handler"></a>（一）Handler</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends FragmentActivity&#123; </div><div class="line">      //声明一个Handler </div><div class="line">      public Handler mHandler = new Handler()&#123;       </div><div class="line">          @Override</div><div class="line">           public void handleMessage(Message msg) &#123; </div><div class="line">                super.handleMessage(msg);</div><div class="line">                 ...相应的处理代码</div><div class="line">           &#125;</div><div class="line">     &#125;</div><div class="line">     ...相应的处理代码</div><div class="line">   &#125; </div><div class="line"></div><div class="line">    public class MainFragment extends Fragment&#123; </div><div class="line">          //保存Activity传递的handler</div><div class="line">           private Handler mHandler;</div><div class="line">           @Override</div><div class="line">           public void onAttach(Activity activity) &#123; </div><div class="line">                super.onAttach(activity);</div><div class="line">               //这个地方已经产生了耦合，若还有其他的activity，这个地方就得修改 </div><div class="line">                if(activity instance MainActivity)&#123; </div><div class="line">                      mHandler =  ((MainActivity)activity).mHandler; </div><div class="line">                &#125;</div><div class="line">           &#125;</div><div class="line">           ...相应的处理代码</div><div class="line">     &#125;</div></pre></td></tr></table></figure>
 <ul>
@@ -292,7 +290,7 @@
 
 
     <hr />
-    <h3>Comments:</h3>
+    <h3>Kommentare:</h3>
     <div id="fb-root"></div>
     <script>
         (function(d, s, id) {
