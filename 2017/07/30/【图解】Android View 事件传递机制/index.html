@@ -227,15 +227,20 @@
                 <p>欢迎访问我的博客：<a href="https://pangrongxian.github.io/" target="_blank" rel="external">Android 解忧杂货店</a></p>
 <h3 id="MotionEvent-—-点击事件"><a href="#MotionEvent-—-点击事件" class="headerlink" title="MotionEvent — 点击事件"></a>MotionEvent — 点击事件</h3><p>所有 Touch 事件都被封装成了 MotionEvent 对象，包括 Touch 的位置、时间、历史记录以及第几个手指(多指触摸)等。</p>
 <p>当一个 MotionEvent 产生后，系统需要把这个事件传递给一个具体的View，而这个传递的过程就是分发过程。</p>
-<h3 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h3><p>ACTION_DOWN  手指刚接触屏幕</p>
-<p>ACTION_MOVE  手指在屏幕上移动</p>
-<p>ACTION_UP    手指从屏幕上松开的一瞬间</p>
-<p>ACTION_POINTER_DOWN  （屏幕上已有触控点，再按下其他触控点） </p>
-<p>ACTION_POINTER_UP（屏幕上当前有多个触控点，松开非最后一个点） </p>
-<p>ACTION_CANCEL</p>
-<h4 id="每个事件都是以-ACTION-DOWN-开始-ACTION-UP-结束。"><a href="#每个事件都是以-ACTION-DOWN-开始-ACTION-UP-结束。" class="headerlink" title="每个事件都是以 ACTION_DOWN 开始 ACTION_UP 结束。"></a>每个事件都是以 <strong>ACTION_DOWN</strong> 开始 <strong>ACTION_UP</strong> 结束。</h4><h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><ul>
+<h3 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h3><p><strong>ACTION_DOWN :</strong>  手指刚接触屏幕</p>
+<p><strong>ACTION_MOVE :</strong>  手指在屏幕上移动</p>
+<p><strong>ACTION_UP :</strong>    手指从屏幕上松开的一瞬间</p>
+<p><strong>ACTION_POINTER_DOWN :</strong>  （屏幕上已有触控点，再按下其他触控点） </p>
+<p><strong>ACTION_POINTER_UP :</strong>（屏幕上当前有多个触控点，松开非最后一个点） </p>
+<p><strong>ACTION_CANCEL :</strong></p>
+<p>每个事件都是以 <strong>ACTION_DOWN</strong> 开始 <strong>ACTION_UP</strong> 结束。</p>
+<h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><ul>
 <li><h4 id="传递-——-dispatchTouchEvent-函数"><a href="#传递-——-dispatchTouchEvent-函数" class="headerlink" title="传递 —— dispatchTouchEvent() 函数"></a>传递 —— dispatchTouchEvent() 函数</h4></li>
+</ul>
+<ul>
 <li><h4 id="拦截-——-onInterceptTouchEvent-函数"><a href="#拦截-——-onInterceptTouchEvent-函数" class="headerlink" title="拦截 —— onInterceptTouchEvent() 函数"></a>拦截 —— onInterceptTouchEvent() 函数</h4></li>
+</ul>
+<ul>
 <li><h4 id="消费-——-onTouchEvent-函数-和-OnTouchListener"><a href="#消费-——-onTouchEvent-函数-和-OnTouchListener" class="headerlink" title="消费 —— onTouchEvent() 函数 和 OnTouchListener"></a>消费 —— onTouchEvent() 函数 和 OnTouchListener</h4></li>
 </ul>
 <h3 id="处理事件的方法介绍："><a href="#处理事件的方法介绍：" class="headerlink" title="处理事件的方法介绍："></a>处理事件的方法介绍：</h3><h3 id="dispatchTouchEvent-MotionEvent-ev"><a href="#dispatchTouchEvent-MotionEvent-ev" class="headerlink" title="dispatchTouchEvent(MotionEvent ev)"></a>dispatchTouchEvent(MotionEvent ev)</h3><p>用来进行事件的分发。如果事件能够传递给当前 View，那么此方法一定会被调用，返回结果受当前 View 的 onTouchEvent() 和下级 View 的 dispatchTouchEvent()方法影响，表示是否消耗当前事件。</p>
