@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="在思域车上等到天亮">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="小先先">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="【图解】Android View 事件传递机制"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="在思域车上等到天亮" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Android解忧杂货店"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>【图解】Android View 事件传递机制 - Android解忧杂货店</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-102249366-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="http://ww1.sinaimg.cn/large/006rIajegy1fhczf44dbwj30zk0jz43t.jpg">
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">庞小先之家</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/About">
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/pangrongxian">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://ww1.sinaimg.cn/large/006rIajegy1fhczbefq02j31hc0u0hdt.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>【图解】Android View 事件传递机制</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by pangrongxian on
+                        
+                        
+                            2017-07-30
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/Android/">#Android</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Android/">Android</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>欢迎访问我的博客：<a href="https://pangrongxian.github.io/" target="_blank" rel="external">Android 解忧杂货店</a></p>
+<h3 id="MotionEvent-—-点击事件"><a href="#MotionEvent-—-点击事件" class="headerlink" title="MotionEvent — 点击事件"></a>MotionEvent — 点击事件</h3><p>所有 Touch 事件都被封装成了 MotionEvent 对象，包括 Touch 的位置、时间、历史记录以及第几个手指(多指触摸)等。</p>
+<p>当一个 MotionEvent 产生后，系统需要把这个事件传递给一个具体的View，而这个传递的过程就是分发过程。</p>
+<h3 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h3><ul>
+<li><h4 id="ACTION-DOWN-手指刚接触屏幕"><a href="#ACTION-DOWN-手指刚接触屏幕" class="headerlink" title="ACTION_DOWN  手指刚接触屏幕"></a>ACTION_DOWN  手指刚接触屏幕</h4></li>
+<li><h4 id="ACTION-MOVE-手指在屏幕上移动"><a href="#ACTION-MOVE-手指在屏幕上移动" class="headerlink" title="ACTION_MOVE  手指在屏幕上移动"></a>ACTION_MOVE  手指在屏幕上移动</h4></li>
+<li><h4 id="ACTION-UP-手指从屏幕上松开的一瞬间"><a href="#ACTION-UP-手指从屏幕上松开的一瞬间" class="headerlink" title="ACTION_UP    手指从屏幕上松开的一瞬间"></a>ACTION_UP    手指从屏幕上松开的一瞬间</h4></li>
+<li><h4 id="ACTION-POINTER-DOWN-（屏幕上已有触控点，再按下其他触控点）"><a href="#ACTION-POINTER-DOWN-（屏幕上已有触控点，再按下其他触控点）" class="headerlink" title="ACTION_POINTER_DOWN  （屏幕上已有触控点，再按下其他触控点）"></a>ACTION_POINTER_DOWN  （屏幕上已有触控点，再按下其他触控点）</h4></li>
+<li><h4 id="ACTION-POINTER-UP（屏幕上当前有多个触控点，松开非最后一个点）"><a href="#ACTION-POINTER-UP（屏幕上当前有多个触控点，松开非最后一个点）" class="headerlink" title="ACTION_POINTER_UP（屏幕上当前有多个触控点，松开非最后一个点）"></a>ACTION_POINTER_UP（屏幕上当前有多个触控点，松开非最后一个点）</h4></li>
+<li><h4 id="ACTION-CANCEL"><a href="#ACTION-CANCEL" class="headerlink" title="ACTION_CANCEL"></a>ACTION_CANCEL</h4></li>
+</ul>
+<h4 id="每个事件都是以-ACTION-DOWN-开始-ACTION-UP-结束。"><a href="#每个事件都是以-ACTION-DOWN-开始-ACTION-UP-结束。" class="headerlink" title="每个事件都是以 ACTION_DOWN 开始 ACTION_UP 结束。"></a>每个事件都是以 <strong>ACTION_DOWN</strong> 开始 <strong>ACTION_UP</strong> 结束。</h4><h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><ul>
+<li><h4 id="传递-——-dispatchTouchEvent-函数"><a href="#传递-——-dispatchTouchEvent-函数" class="headerlink" title="传递 —— dispatchTouchEvent() 函数"></a>传递 —— dispatchTouchEvent() 函数</h4></li>
+<li><h4 id="拦截-——-onInterceptTouchEvent-函数"><a href="#拦截-——-onInterceptTouchEvent-函数" class="headerlink" title="拦截 —— onInterceptTouchEvent() 函数"></a>拦截 —— onInterceptTouchEvent() 函数</h4></li>
+<li><h4 id="消费-——-onTouchEvent-函数-和-OnTouchListener"><a href="#消费-——-onTouchEvent-函数-和-OnTouchListener" class="headerlink" title="消费 —— onTouchEvent() 函数 和 OnTouchListener"></a>消费 —— onTouchEvent() 函数 和 OnTouchListener</h4></li>
+</ul>
+<h3 id="处理事件的方法介绍："><a href="#处理事件的方法介绍：" class="headerlink" title="处理事件的方法介绍："></a>处理事件的方法介绍：</h3><h3 id="dispatchTouchEvent-MotionEvent-ev"><a href="#dispatchTouchEvent-MotionEvent-ev" class="headerlink" title="dispatchTouchEvent(MotionEvent ev)"></a>dispatchTouchEvent(MotionEvent ev)</h3><p>用来进行事件的分发。如果事件能够传递给当前 View，那么此方法一定会被调用，返回结果受当前 View 的 onTouchEvent() 和下级 View 的 dispatchTouchEvent()方法影响，表示是否消耗当前事件。</p>
+<h3 id="onInterceptTouchEvent-MotionEvent-event"><a href="#onInterceptTouchEvent-MotionEvent-event" class="headerlink" title="onInterceptTouchEvent(MotionEvent event)"></a>onInterceptTouchEvent(MotionEvent event)</h3><p>在上述方法( dispatchTouchEvent() )的内部调用，用来判断是否拦截某个事件，如果当前 View 拦截了某个事件，那么在同一个事件序列当中，此方法不会被再次调用，返回结果表示是否拦截当前事件。</p>
+<h3 id="onTouchEvent-MotionEvent-event"><a href="#onTouchEvent-MotionEvent-event" class="headerlink" title="onTouchEvent(MotionEvent event)"></a>onTouchEvent(MotionEvent event)</h3><p>在 dispatchTouchEvent 方法中调用，用来处理点击事件，返回结果表示是否消耗当前事件，如果不消耗，则在同一个事件序列中，当前View无法再次接受到事件。</p>
+<h3 id="传递流程"><a href="#传递流程" class="headerlink" title="传递流程"></a>传递流程</h3><h3 id="Activity-——-gt-ViewGroup-父View-——-gt-View-子View-即目标View"><a href="#Activity-——-gt-ViewGroup-父View-——-gt-View-子View-即目标View" class="headerlink" title="Activity ——&gt; ViewGroup (父View) ——&gt; View (子View,即目标View)"></a>Activity ——&gt; ViewGroup (父View) ——&gt; View (子View,即目标View)</h3><h3 id="一图胜千言"><a href="#一图胜千言" class="headerlink" title="一图胜千言"></a>一图胜千言</h3><h3 id="1-View-不处理事件流程图"><a href="#1-View-不处理事件流程图" class="headerlink" title="(1) View 不处理事件流程图"></a>(1) View 不处理事件流程图</h3><p><img src="http://img.blog.csdn.net/20160805105619974?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<h3 id="2-View-处理事件流程图"><a href="#2-View-处理事件流程图" class="headerlink" title="(2) View 处理事件流程图"></a>(2) View 处理事件流程图</h3><p><img src="http://img.blog.csdn.net/20160805105646506?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<h3 id="3-View-事件被拦截的情况："><a href="#3-View-事件被拦截的情况：" class="headerlink" title="(3) View 事件被拦截的情况："></a>(3) View 事件被拦截的情况：</h3><p><img src="http://img.blog.csdn.net/20160805105707288?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<h3 id="下面开始详解："><a href="#下面开始详解：" class="headerlink" title="下面开始详解："></a>下面开始详解：</h3><p><img src="http://img.blog.csdn.net/20140227095525546" alt=""></p>
+<ol>
+<li><p>触摸事件是一连串ACTION_DOWN，ACTION_MOVE..MOVE…MOVE、最后ACTION_UP，触摸事件还有ACTION_CANCEL事件。</p>
+</li>
+<li><p>事件都是从ACTION_DOWN开始的，Activity的dispatchTouchEvent()首先接收到ACTION_DOWN，执行super.dispatchTouchEvent(ev)，事件向下分发。</p>
+</li>
+<li><p>dispatchTouchEvent()返回true，后续事件（ACTION_MOVE、ACTION_UP）会再传递，如果返回false，dispatchTouchEvent()就接收不到ACTION_UP、ACTION_MOVE。</p>
+</li>
+</ol>
+<h4 id="情形-1-：ACTION-DOWN-事件没有被消费-流程图："><a href="#情形-1-：ACTION-DOWN-事件没有被消费-流程图：" class="headerlink" title="情形 1 ：ACTION_DOWN 事件没有被消费 流程图："></a>情形 1 ：ACTION_DOWN 事件没有被消费 流程图：</h4><p><img src="http://img.blog.csdn.net/20140226202907812" alt=""></p>
+<h4 id="情形-2-：ACTION-DOWN-被目标-View-消费："><a href="#情形-2-：ACTION-DOWN-被目标-View-消费：" class="headerlink" title="情形 2 ：ACTION_DOWN 被目标 View 消费："></a>情形 2 ：ACTION_DOWN 被目标 View 消费：</h4><p><img src="http://img.blog.csdn.net/20140226203028734" alt=""></p>
+<h4 id="情形-2-1-后续ACTION-MOVE和UP在不被拦截的情况下都会去找VIEW"><a href="#情形-2-1-后续ACTION-MOVE和UP在不被拦截的情况下都会去找VIEW" class="headerlink" title="情形 2.1 后续ACTION_MOVE和UP在不被拦截的情况下都会去找VIEW"></a>情形 2.1 后续ACTION_MOVE和UP在不被拦截的情况下都会去找VIEW</h4><p><img src="http://img.blog.csdn.net/20140226203125390" alt=""></p>
+<h4 id="情形-2-2-后续的事件（ACTION-MOVE和UP）被拦截了"><a href="#情形-2-2-后续的事件（ACTION-MOVE和UP）被拦截了" class="headerlink" title="情形 2.2 后续的事件（ACTION_MOVE和UP）被拦截了"></a>情形 2.2 后续的事件（ACTION_MOVE和UP）被拦截了</h4><p><img src="http://img.blog.csdn.net/20140226203214000" alt=""></p>
+<h4 id="情形-3-ACTION-DOWN一开始就被父View（ViewGroup）拦截"><a href="#情形-3-ACTION-DOWN一开始就被父View（ViewGroup）拦截" class="headerlink" title="情形 3 ACTION_DOWN一开始就被父View（ViewGroup）拦截"></a>情形 3 ACTION_DOWN一开始就被父View（ViewGroup）拦截</h4><p><img src="http://img.blog.csdn.net/20140226203301578" alt=""></p>
+<hr>
+<h4 id="android中的Touch事件都是从ACTION-DOWN开始的："><a href="#android中的Touch事件都是从ACTION-DOWN开始的：" class="headerlink" title="android中的Touch事件都是从ACTION_DOWN开始的："></a>android中的Touch事件都是从ACTION_DOWN开始的：</h4><ol>
+<li>单手指操作：ACTION_DOWN—ACTION_MOVE—-ACTION_UP</li>
+<li>多手指操作：ACTION_DOWN—ACTION_POINTER_DOWN—ACTION_MOVE–ACTION_POINTER_UP—ACTION_UP.</li>
+</ol>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><ol>
+<li><p>事件从 Activity.dispatchTouchEvent()开始传递，只要没有被停止或拦截，从最上层的 View(ViewGroup)开始一直往下(子 View)传递。子 View 可以通过 onTouchEvent()对事件进行处理。</p>
+</li>
+<li><p>事件由父 View(ViewGroup)传递给子 View，ViewGroup 可以通过 onInterceptTouchEvent()对事件做拦截，停止其往下传递。</p>
+</li>
+<li><p>如果事件从上往下传递过程中一直没有被停止，且最底层子 View 没有消费事件，事件会反向往上传递，这时父 View(ViewGroup)可以进行消费，如果还是没有被消费的话，最后会到 Activity 的 onTouchEvent()函数。</p>
+</li>
+<li><p>如果 View 没有对 ACTION_DOWN 进行消费，之后的其他事件不会传递过来。</p>
+</li>
+<li><p>OnTouchListener 优先于 onTouchEvent()对事件进行消费。<br>上面的消费即表示相应函数返回值为 true。</p>
+</li>
+</ol>
+<h3 id="参考博文："><a href="#参考博文：" class="headerlink" title="参考博文："></a>参考博文：</h3><p><a href="http://blog.csdn.net/a_long_/article/details/52124606" target="_blank" rel="external">彻底掌握Android的Touch触摸事件传递机制</a></p>
+<p><a href="http://blog.csdn.net/goo_x/article/details/53354863" target="_blank" rel="external">Android 触控事件解析（Mastering the Android Touch System）</a></p>
+<p><a href="http://blog.csdn.net/xyz_lmn/article/details/12517911" target="_blank" rel="external"> Android中的dispatchTouchEvent()、onInterceptTouchEvent()和onTouchEvent()</a></p>
+
+
+                
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5960f67cd59f733f"></script>
+
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                    <div class="addthis_sharing_toolbox"></div>
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+    <hr />
+    <h3>Kommentare:</h3>
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1346486892138010";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <div class="fb-comments" data-href="https://github.com/pangrongxian/2017/07/30/【图解】Android View 事件传递机制/index.html" data-num-posts="5" data-width="100%" data-colorscheme="light"></div>
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+                        <li>
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/pangrongxian" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+
+
+
+
+                <p class="copyright text-muted">&copy; 2017 小先先<br></p>
+
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+
+                <p class="copyright text-muted">
+
+                    <span id="busuanzi_container_page_pv">Reading <span id="busuanzi_value_page_pv">
+                    </span> Times</span>
+
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
