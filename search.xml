@@ -9,14 +9,12 @@
       <content type="html"><![CDATA[<p>欢迎访问我的博客：<a href="https://pangrongxian.github.io/" target="_blank" rel="external">Android 解忧杂货店</a></p>
 <h3 id="MotionEvent-—-点击事件"><a href="#MotionEvent-—-点击事件" class="headerlink" title="MotionEvent — 点击事件"></a>MotionEvent — 点击事件</h3><p>所有 Touch 事件都被封装成了 MotionEvent 对象，包括 Touch 的位置、时间、历史记录以及第几个手指(多指触摸)等。</p>
 <p>当一个 MotionEvent 产生后，系统需要把这个事件传递给一个具体的View，而这个传递的过程就是分发过程。</p>
-<h3 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h3><ul>
-<li><h4 id="ACTION-DOWN-手指刚接触屏幕"><a href="#ACTION-DOWN-手指刚接触屏幕" class="headerlink" title="ACTION_DOWN  手指刚接触屏幕"></a>ACTION_DOWN  手指刚接触屏幕</h4></li>
-<li><h4 id="ACTION-MOVE-手指在屏幕上移动"><a href="#ACTION-MOVE-手指在屏幕上移动" class="headerlink" title="ACTION_MOVE  手指在屏幕上移动"></a>ACTION_MOVE  手指在屏幕上移动</h4></li>
-<li><h4 id="ACTION-UP-手指从屏幕上松开的一瞬间"><a href="#ACTION-UP-手指从屏幕上松开的一瞬间" class="headerlink" title="ACTION_UP    手指从屏幕上松开的一瞬间"></a>ACTION_UP    手指从屏幕上松开的一瞬间</h4></li>
-<li><h4 id="ACTION-POINTER-DOWN-（屏幕上已有触控点，再按下其他触控点）"><a href="#ACTION-POINTER-DOWN-（屏幕上已有触控点，再按下其他触控点）" class="headerlink" title="ACTION_POINTER_DOWN  （屏幕上已有触控点，再按下其他触控点）"></a>ACTION_POINTER_DOWN  （屏幕上已有触控点，再按下其他触控点）</h4></li>
-<li><h4 id="ACTION-POINTER-UP（屏幕上当前有多个触控点，松开非最后一个点）"><a href="#ACTION-POINTER-UP（屏幕上当前有多个触控点，松开非最后一个点）" class="headerlink" title="ACTION_POINTER_UP（屏幕上当前有多个触控点，松开非最后一个点）"></a>ACTION_POINTER_UP（屏幕上当前有多个触控点，松开非最后一个点）</h4></li>
-<li><h4 id="ACTION-CANCEL"><a href="#ACTION-CANCEL" class="headerlink" title="ACTION_CANCEL"></a>ACTION_CANCEL</h4></li>
-</ul>
+<h3 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h3><p>ACTION_DOWN  手指刚接触屏幕</p>
+<p>ACTION_MOVE  手指在屏幕上移动</p>
+<p>ACTION_UP    手指从屏幕上松开的一瞬间</p>
+<p>ACTION_POINTER_DOWN  （屏幕上已有触控点，再按下其他触控点） </p>
+<p>ACTION_POINTER_UP（屏幕上当前有多个触控点，松开非最后一个点） </p>
+<p>ACTION_CANCEL</p>
 <h4 id="每个事件都是以-ACTION-DOWN-开始-ACTION-UP-结束。"><a href="#每个事件都是以-ACTION-DOWN-开始-ACTION-UP-结束。" class="headerlink" title="每个事件都是以 ACTION_DOWN 开始 ACTION_UP 结束。"></a>每个事件都是以 <strong>ACTION_DOWN</strong> 开始 <strong>ACTION_UP</strong> 结束。</h4><h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><ul>
 <li><h4 id="传递-——-dispatchTouchEvent-函数"><a href="#传递-——-dispatchTouchEvent-函数" class="headerlink" title="传递 —— dispatchTouchEvent() 函数"></a>传递 —— dispatchTouchEvent() 函数</h4></li>
 <li><h4 id="拦截-——-onInterceptTouchEvent-函数"><a href="#拦截-——-onInterceptTouchEvent-函数" class="headerlink" title="拦截 —— onInterceptTouchEvent() 函数"></a>拦截 —— onInterceptTouchEvent() 函数</h4></li>
@@ -25,7 +23,8 @@
 <h3 id="处理事件的方法介绍："><a href="#处理事件的方法介绍：" class="headerlink" title="处理事件的方法介绍："></a>处理事件的方法介绍：</h3><h3 id="dispatchTouchEvent-MotionEvent-ev"><a href="#dispatchTouchEvent-MotionEvent-ev" class="headerlink" title="dispatchTouchEvent(MotionEvent ev)"></a>dispatchTouchEvent(MotionEvent ev)</h3><p>用来进行事件的分发。如果事件能够传递给当前 View，那么此方法一定会被调用，返回结果受当前 View 的 onTouchEvent() 和下级 View 的 dispatchTouchEvent()方法影响，表示是否消耗当前事件。</p>
 <h3 id="onInterceptTouchEvent-MotionEvent-event"><a href="#onInterceptTouchEvent-MotionEvent-event" class="headerlink" title="onInterceptTouchEvent(MotionEvent event)"></a>onInterceptTouchEvent(MotionEvent event)</h3><p>在上述方法( dispatchTouchEvent() )的内部调用，用来判断是否拦截某个事件，如果当前 View 拦截了某个事件，那么在同一个事件序列当中，此方法不会被再次调用，返回结果表示是否拦截当前事件。</p>
 <h3 id="onTouchEvent-MotionEvent-event"><a href="#onTouchEvent-MotionEvent-event" class="headerlink" title="onTouchEvent(MotionEvent event)"></a>onTouchEvent(MotionEvent event)</h3><p>在 dispatchTouchEvent 方法中调用，用来处理点击事件，返回结果表示是否消耗当前事件，如果不消耗，则在同一个事件序列中，当前View无法再次接受到事件。</p>
-<h3 id="传递流程"><a href="#传递流程" class="headerlink" title="传递流程"></a>传递流程</h3><h3 id="Activity-——-gt-ViewGroup-父View-——-gt-View-子View-即目标View"><a href="#Activity-——-gt-ViewGroup-父View-——-gt-View-子View-即目标View" class="headerlink" title="Activity ——&gt; ViewGroup (父View) ——&gt; View (子View,即目标View)"></a>Activity ——&gt; ViewGroup (父View) ——&gt; View (子View,即目标View)</h3><h3 id="一图胜千言"><a href="#一图胜千言" class="headerlink" title="一图胜千言"></a>一图胜千言</h3><h3 id="1-View-不处理事件流程图"><a href="#1-View-不处理事件流程图" class="headerlink" title="(1) View 不处理事件流程图"></a>(1) View 不处理事件流程图</h3><p><img src="http://img.blog.csdn.net/20160805105619974?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<h3 id="传递流程"><a href="#传递流程" class="headerlink" title="传递流程"></a>传递流程</h3><p><strong>Activity ——&gt; ViewGroup (父View) ——&gt; View (子View,即目标View)</strong></p>
+<h3 id="一图胜千言"><a href="#一图胜千言" class="headerlink" title="一图胜千言"></a>一图胜千言</h3><h3 id="1-View-不处理事件流程图"><a href="#1-View-不处理事件流程图" class="headerlink" title="(1) View 不处理事件流程图"></a>(1) View 不处理事件流程图</h3><p><img src="http://img.blog.csdn.net/20160805105619974?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
 <h3 id="2-View-处理事件流程图"><a href="#2-View-处理事件流程图" class="headerlink" title="(2) View 处理事件流程图"></a>(2) View 处理事件流程图</h3><p><img src="http://img.blog.csdn.net/20160805105646506?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
 <h3 id="3-View-事件被拦截的情况："><a href="#3-View-事件被拦截的情况：" class="headerlink" title="(3) View 事件被拦截的情况："></a>(3) View 事件被拦截的情况：</h3><p><img src="http://img.blog.csdn.net/20160805105707288?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
 <h3 id="下面开始详解："><a href="#下面开始详解：" class="headerlink" title="下面开始详解："></a>下面开始详解：</h3><p><img src="http://img.blog.csdn.net/20140227095525546" alt=""></p>
