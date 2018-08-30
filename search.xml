@@ -5,7 +5,7 @@
     
     <entry>
       <title></title>
-      <url>https://github.com/pangrongxian/2018/08/30/MD%E8%BD%AC%E6%88%90wxml/</url>
+      <url>https://github.com/pangrongxian/2018/08/30/MD%E8%BD%AC%E6%88%90wxml%E6%B5%8B%E8%AF%95/</url>
       <content type="html"><![CDATA[<h1 id="Towxml"><a href="#Towxml" class="headerlink" title="Towxml"></a>Towxml</h1><iframe width="853" height="480" src="https://www.youtube.com/embed/Zlot0i3Zykw?list=RDZlot0i3Zykw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 <p>由于微信小程序==不允许直接渲染==<code>HTML</code>，因此富文本编辑器生成的<code>HTML</code>内容无法直接在小程序中展示。</p>
