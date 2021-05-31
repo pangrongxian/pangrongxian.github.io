@@ -1,5 +1,5 @@
 function _login(name) {
-  getUserInfo()
+  share()
 }
 
 
