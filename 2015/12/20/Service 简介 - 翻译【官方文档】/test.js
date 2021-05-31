@@ -1,5 +1,5 @@
 function _login(name) {
-   dartFunc()
+   window.callDartFunc()
 }
 
 
