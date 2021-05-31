@@ -1,5 +1,6 @@
 function _login(name) {
   alert(name + "我是引用进来的方法~~");
+  alertMessage(name)
 }
 
 
