@@ -5,6 +5,7 @@ function _login(name) {
 
 function alertMessage(text) {
     alert(text)
+    console.log(text);
 }
 
 window.logger = (flutter_value) => {
