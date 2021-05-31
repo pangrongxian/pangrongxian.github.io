@@ -1,6 +1,5 @@
 function _login(name) {
-   javascriptFunctionName({'param': 'value'});
-   window.getUserInfo()
+   window.dartFunc()
 }
 
 
