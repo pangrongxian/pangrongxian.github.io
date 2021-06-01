@@ -20,3 +20,10 @@ function myFunction() {
 function someClass(a) {
   this.a = a;
 }
+
+export function getUserInfo() {
+  console.log("getUserInfo======");
+}
+
+
+
