@@ -21,8 +21,8 @@ function someClass(a) {
   this.a = a;
 }
 
-function openJs() {
-  console.log("openJs======" + arguments);
+function alert() {
+  console.log("openJs======");
 }
 
 
