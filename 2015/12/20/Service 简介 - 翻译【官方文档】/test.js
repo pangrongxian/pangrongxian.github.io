@@ -21,8 +21,8 @@ function someClass(a) {
   this.a = a;
 }
 
-function getUserInfo() {
-  console.log("getUserInfo======" + arguments[0]);
+function openJs() {
+  console.log("openJs======" + arguments);
 }
 
 
