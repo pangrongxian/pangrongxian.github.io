@@ -21,7 +21,7 @@ function someClass(a) {
   this.a = a;
 }
 
-export function getUserInfo() {
+function getUserInfo() {
   console.log("getUserInfo======");
 }
 
