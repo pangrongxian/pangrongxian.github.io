@@ -1,5 +1,5 @@
 function _login(name) {
-   window.dartFunc("dartFunc")
+    window.bridge.callPhone('400-99-55855')
 }
 
 
