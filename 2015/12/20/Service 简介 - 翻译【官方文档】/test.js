@@ -22,7 +22,7 @@ function someClass(a) {
 }
 
 function getUserInfo() {
-  console.log("getUserInfo======" + arguments);
+  console.log("getUserInfo======" + arguments[0].toString());
 }
 
 
