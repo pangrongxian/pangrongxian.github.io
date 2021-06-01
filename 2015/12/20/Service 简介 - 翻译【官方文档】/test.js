@@ -21,9 +21,9 @@ function someClass(a) {
   this.a = a;
 }
 
-// function confirm() {
-    
-// }
+function getUserInfo() {
+    console.log("getUserInfo=======");
+}
 
 
 
