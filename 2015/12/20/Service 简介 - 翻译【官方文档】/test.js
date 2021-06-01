@@ -1,5 +1,5 @@
 function _login(name) {
-    window.bridge.callPhone('400-99-55855')
+    confirm("Are you sure");
 }
 
 
@@ -21,9 +21,9 @@ function someClass(a) {
   this.a = a;
 }
 
-function alert() {
-  console.log("openJs======");
-}
+// function confirm() {
+    
+// }
 
 
 
