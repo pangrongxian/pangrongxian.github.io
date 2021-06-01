@@ -21,8 +21,8 @@ function someClass(a) {
   this.a = a;
 }
 
-function getUserInfo() {
-    console.log("getUserInfo=======");
+window.getUserInfo=()=>{
+   console.log("getUserInfo=======");   
 }
 
 
