@@ -1,5 +1,5 @@
 function _login(name) {
-   window.webSaveAs()
+   window.getUserInfo()
 }
 
 
